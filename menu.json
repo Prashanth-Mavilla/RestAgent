@@ -1,0 +1,942 @@
+[
+  {
+    "id": 1,
+    "name": "Tandoori Chicken",
+    "category": "Non Veg Starter",
+    "price": { "full": 360, "half": 200 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Yogurt", "Tandoori Masala", "Red Chilli", "Ginger", "Garlic", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 2,
+    "name": "Afgani Chicken",
+    "category": "Non Veg Starter",
+    "price": { "full": 400, "half": 220 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Cream", "Cashew Paste", "Yogurt", "White Pepper", "Ginger", "Garlic", "Cardamom", "Salt"]
+  },
+  {
+    "id": 3,
+    "name": "Chicken Tangri",
+    "category": "Non Veg Starter",
+    "price": { "full": 250, "half": 130 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken Drumsticks", "Yogurt", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 4,
+    "name": "Afgani Tangri",
+    "category": "Non Veg Starter",
+    "price": { "full": 280, "half": 140 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken Drumsticks", "Cream", "Cashew Paste", "Yogurt", "White Pepper", "Ginger", "Garlic", "Cardamom", "Salt"]
+  },
+  {
+    "id": 5,
+    "name": "Chicken Malai Tikka",
+    "category": "Non Veg Starter",
+    "price": { "full": 230, "half": 120 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Cream", "Cheese", "Yogurt", "Cashew Paste", "White Pepper", "Cardamom", "Ginger", "Garlic", "Salt"]
+  },
+  {
+    "id": 6,
+    "name": "Chicken Hariyali Tikka",
+    "category": "Non Veg Starter",
+    "price": { "full": 250, "half": 130 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Mint", "Coriander", "Spinach", "Green Chilli", "Yogurt", "Ginger", "Garlic", "Lemon Juice", "Salt"]
+  },
+  {
+    "id": 7,
+    "name": "Kalmi Kabab",
+    "category": "Non Veg Starter",
+    "price": { "full": 250, "half": 130 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken Drumsticks", "Cream", "Egg", "Cheddar Cheese", "Ginger", "Garlic", "Green Chilli", "Garam Masala", "Salt"]
+  },
+  {
+    "id": 8,
+    "name": "Mutton Kabab",
+    "category": "Non Veg Starter",
+    "price": { "full": 300, "half": 160 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Mutton",
+    "ingredients": ["Minced Mutton", "Onion", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Coriander", "Egg", "Oil", "Salt"]
+  },
+  {
+    "id": 9,
+    "name": "Mutton Seekh Kabab",
+    "category": "Non Veg Starter",
+    "price": { "full": 250, "half": 130 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Mutton",
+    "ingredients": ["Minced Mutton", "Onion", "Green Chilli", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Cumin", "Coriander Leaves", "Salt"]
+  },
+  {
+    "id": 10,
+    "name": "Mutton Barra",
+    "category": "Non Veg Starter",
+    "price": { "full": 480, "half": 240 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Mutton",
+    "ingredients": ["Mutton Chops", "Papaya Paste", "Yogurt", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Mustard Oil", "Lemon Juice", "Salt"]
+  },
+  {
+    "id": 11,
+    "name": "Chicken Seekh Kabab",
+    "category": "Non Veg Starter",
+    "price": { "full": 230, "half": 120 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Minced Chicken", "Onion", "Green Chilli", "Ginger", "Garlic", "Garam Masala", "Cumin", "Coriander Leaves", "Oil", "Salt"]
+  },
+  {
+    "id": 12,
+    "name": "Fish Tikka",
+    "category": "Non Veg Starter",
+    "price": { "full": 280 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Fish",
+    "ingredients": ["Fish Fillets", "Yogurt", "Ginger", "Garlic", "Red Chilli", "Turmeric", "Carom Seeds", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 13,
+    "name": "Fish Surmai/Sole",
+    "category": "Non Veg Starter",
+    "price": { "full": 330 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Fish",
+    "ingredients": ["Surmai/Sole Fish", "Yogurt", "Ginger", "Garlic", "Red Chilli", "Turmeric", "Garam Masala", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 14,
+    "name": "Fish Pamphlet",
+    "category": "Non Veg Starter",
+    "price": { "full": 350 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Fish",
+    "ingredients": ["Pamphlet Fish", "Yogurt", "Ginger", "Garlic", "Red Chilli", "Turmeric", "Coriander Powder", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 15,
+    "name": "Kali Mirch Tikka",
+    "category": "Non Veg Starter",
+    "price": { "full": 300 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Black Pepper", "Cream", "Yogurt", "Ginger", "Garlic", "Cardamom", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 16,
+    "name": "Butter Chicken (Boneless)",
+    "category": "Non Veg Main Course",
+    "price": { "full": 550, "half": 330 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Low-Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Boneless Chicken", "Butter", "Tomato Puree", "Cream", "Cashew Paste", "Onion", "Ginger", "Garlic", "Garam Masala", "Fenugreek Leaves", "Salt"]
+  },
+  {
+    "id": 17,
+    "name": "Butter Chicken",
+    "category": "Non Veg Main Course",
+    "price": { "full": 500, "half": 300 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Low-Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Butter", "Tomato Puree", "Cream", "Cashew Paste", "Onion", "Ginger", "Garlic", "Garam Masala", "Fenugreek Leaves", "Salt"]
+  },
+  {
+    "id": 18,
+    "name": "Kadai Chicken",
+    "category": "Non Veg Main Course",
+    "price": { "full": 500, "half": 300 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Onion", "Tomato", "Capsicum", "Ginger", "Garlic", "Kadai Masala", "Red Chilli", "Coriander Seeds", "Oil", "Salt"]
+  },
+  {
+    "id": 19,
+    "name": "Chicken Lababdar",
+    "category": "Non Veg Main Course",
+    "price": { "full": 500, "half": 300 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Tomato", "Onion", "Cream", "Butter", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Fenugreek Leaves", "Salt"]
+  },
+  {
+    "id": 20,
+    "name": "Chicken Do Pyaza",
+    "category": "Non Veg Main Course",
+    "price": { "full": 500, "half": 300 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Double Onion", "Tomato", "Ginger", "Garlic", "Red Chilli", "Coriander Powder", "Garam Masala", "Oil", "Salt"]
+  },
+  {
+    "id": 21,
+    "name": "Handi Spl. Chicken",
+    "category": "Non Veg Main Course",
+    "price": { "full": 500, "half": 300 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Yogurt", "Cream", "Onion", "Tomato", "Ginger", "Garlic", "Garam Masala", "Saffron", "Charcoal Smoke", "Salt"]
+  },
+  {
+    "id": 22,
+    "name": "Chicken Curry",
+    "category": "Non Veg Main Course",
+    "price": { "full": 500, "half": 300 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Onion", "Tomato", "Ginger", "Garlic", "Turmeric", "Red Chilli", "Coriander Powder", "Garam Masala", "Oil", "Salt"]
+  },
+  {
+    "id": 23,
+    "name": "Tawa Chicken",
+    "category": "Non Veg Main Course",
+    "price": { "full": 500, "half": 300 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Onion", "Tomato", "Capsicum", "Green Chilli", "Ginger", "Garlic", "Tawa Masala", "Butter", "Coriander Leaves", "Salt"]
+  },
+  {
+    "id": 24,
+    "name": "Chicken Rara",
+    "category": "Non Veg Main Course",
+    "price": { "full": 550, "half": 330 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Minced Chicken", "Onion", "Tomato", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Ghee", "Coriander Leaves", "Salt"]
+  },
+  {
+    "id": 25,
+    "name": "Chicken Masala",
+    "category": "Non Veg Main Course",
+    "price": { "full": 550, "half": 330 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Onion", "Tomato", "Ginger", "Garlic", "Red Chilli", "Coriander Powder", "Garam Masala", "Cumin", "Oil", "Salt"]
+  },
+  {
+    "id": 26,
+    "name": "Chicken Kali Mirch",
+    "category": "Non Veg Main Course",
+    "price": { "full": 550, "half": 330 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Black Pepper", "Onion", "Yogurt", "Cream", "Ginger", "Garlic", "Cardamom", "Cloves", "Ghee", "Salt"]
+  },
+  {
+    "id": 27,
+    "name": "Chicken Methi Malai",
+    "category": "Non Veg Main Course",
+    "price": { "full": 550, "half": 330 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Chicken", "Fenugreek Leaves", "Cream", "Yogurt", "Onion", "Ginger", "Garlic", "White Pepper", "Cardamom", "Butter", "Salt"]
+  },
+  {
+    "id": 28,
+    "name": "Chicken Tikka Masala",
+    "category": "Non Veg Main Course",
+    "price": { "full": 330, "half": 200 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Grilled Chicken Tikka", "Tomato Puree", "Onion", "Cream", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Fenugreek Leaves", "Butter", "Salt"]
+  },
+  {
+    "id": 29,
+    "name": "Butter Chicken Tikka",
+    "category": "Non Veg Main Course",
+    "price": { "full": 330, "half": 200 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Low-Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Grilled Chicken Tikka", "Butter", "Tomato Puree", "Cream", "Cashew Paste", "Ginger", "Garlic", "Garam Masala", "Fenugreek Leaves", "Salt"]
+  },
+  {
+    "id": 30,
+    "name": "Mutton Korma",
+    "category": "Non Veg Main Course",
+    "price": { "full": 280 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Mutton",
+    "ingredients": ["Mutton", "Yogurt", "Onion", "Cream", "Cashew Paste", "Ginger", "Garlic", "Cardamom", "Cloves", "Saffron", "Ghee", "Salt"]
+  },
+  {
+    "id": 31,
+    "name": "Mutton Rogan Josh",
+    "category": "Non Veg Main Course",
+    "price": { "full": 280 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Mutton",
+    "ingredients": ["Mutton", "Onion", "Yogurt", "Ginger", "Garlic", "Kashmiri Red Chilli", "Fennel Seeds", "Cardamom", "Cloves", "Mustard Oil", "Salt"]
+  },
+  {
+    "id": 32,
+    "name": "Mutton Rara",
+    "category": "Non Veg Main Course",
+    "price": { "full": 330 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Mutton",
+    "ingredients": ["Mutton Pieces", "Minced Mutton", "Onion", "Tomato", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Ghee", "Coriander Leaves", "Salt"]
+  },
+  {
+    "id": 33,
+    "name": "Egg Curry",
+    "category": "Non Veg Main Course",
+    "price": { "full": 160 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Egg",
+    "ingredients": ["Boiled Eggs", "Onion", "Tomato", "Ginger", "Garlic", "Turmeric", "Red Chilli", "Coriander Powder", "Garam Masala", "Oil", "Salt"]
+  },
+  {
+    "id": 34,
+    "name": "Fish Curry",
+    "category": "Non Veg Main Course",
+    "price": { "full": 300 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Fish",
+    "ingredients": ["Fish", "Onion", "Tomato", "Coconut Milk", "Ginger", "Garlic", "Turmeric", "Red Chilli", "Mustard Seeds", "Curry Leaves", "Oil", "Salt"]
+  },
+  {
+    "id": 35,
+    "name": "Spl. Shawarma Roll",
+    "category": "Roomali Rolls",
+    "price": { "full": 60 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Roomali Roti", "Chicken", "Garlic Sauce", "Tahini", "Onion", "Tomato", "Cucumber", "Pickles", "Shawarma Spices", "Salt"]
+  },
+  {
+    "id": 36,
+    "name": "Chicken Tikka Roll",
+    "category": "Roomali Rolls",
+    "price": { "full": 120 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Roomali Roti", "Grilled Chicken Tikka", "Onion", "Green Chutney", "Tamarind Chutney", "Chaat Masala", "Lemon Juice", "Salt"]
+  },
+  {
+    "id": 37,
+    "name": "Chicken Malai Tikka Roll",
+    "category": "Roomali Rolls",
+    "price": { "full": 130 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Roomali Roti", "Malai Chicken Tikka", "Cream", "Onion", "Green Chutney", "Mint", "Chaat Masala", "Salt"]
+  },
+  {
+    "id": 38,
+    "name": "Chicken Seekh Kabab Roll",
+    "category": "Roomali Rolls",
+    "price": { "full": 120 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Roomali Roti", "Chicken Seekh Kabab", "Onion Rings", "Green Chutney", "Tamarind Chutney", "Chaat Masala", "Lemon Juice", "Salt"]
+  },
+  {
+    "id": 39,
+    "name": "Mutton Seekh Kabab Roll",
+    "category": "Roomali Rolls",
+    "price": { "full": 130 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "High",
+    "main_ingredient": "Mutton",
+    "ingredients": ["Roomali Roti", "Mutton Seekh Kabab", "Onion Rings", "Green Chutney", "Tamarind Chutney", "Chaat Masala", "Lemon Juice", "Salt"]
+  },
+  {
+    "id": 40,
+    "name": "Paneer Tikka Roll",
+    "category": "Roomali Rolls",
+    "price": { "full": 100 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Roomali Roti", "Grilled Paneer Tikka", "Onion", "Capsicum", "Green Chutney", "Tamarind Chutney", "Chaat Masala", "Salt"]
+  },
+  {
+    "id": 41,
+    "name": "Mushroom Tikka Roll",
+    "category": "Roomali Rolls",
+    "price": { "full": 90 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Mushroom",
+    "ingredients": ["Roomali Roti", "Grilled Mushroom Tikka", "Onion", "Green Chutney", "Tamarind Chutney", "Chaat Masala", "Lemon Juice", "Salt"]
+  },
+  {
+    "id": 42,
+    "name": "Soya Chap Roll",
+    "category": "Roomali Rolls",
+    "price": { "full": 90 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Soya",
+    "ingredients": ["Roomali Roti", "Soya Chap", "Onion", "Green Chutney", "Tamarind Chutney", "Chaat Masala", "Lemon Juice", "Salt"]
+  },
+  {
+    "id": 43,
+    "name": "Jeera Rice",
+    "category": "Rice",
+    "price": { "full": 120 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Rice",
+    "ingredients": ["Basmati Rice", "Cumin Seeds", "Ghee", "Bay Leaf", "Salt"]
+  },
+  {
+    "id": 44,
+    "name": "Peas Pulao",
+    "category": "Rice",
+    "price": { "full": 130 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Rice",
+    "ingredients": ["Basmati Rice", "Green Peas", "Onion", "Ghee", "Cumin Seeds", "Cardamom", "Cloves", "Bay Leaf", "Salt"]
+  },
+  {
+    "id": 45,
+    "name": "Veg Biryani",
+    "category": "Rice",
+    "price": { "full": 160 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Rice",
+    "ingredients": ["Basmati Rice", "Mixed Vegetables", "Onion", "Yogurt", "Saffron", "Ghee", "Biryani Masala", "Mint", "Fried Onion", "Salt"]
+  },
+  {
+    "id": 46,
+    "name": "Chicken Biryani",
+    "category": "Rice",
+    "price": { "full": 200 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Chicken",
+    "ingredients": ["Basmati Rice", "Chicken", "Onion", "Yogurt", "Saffron", "Ghee", "Biryani Masala", "Mint", "Fried Onion", "Ginger", "Garlic", "Salt"]
+  },
+  {
+    "id": 47,
+    "name": "Tandoori Roti / Butter Roti",
+    "category": "Breads",
+    "price": { "full": 15 },
+    "veg_nonveg": "Veg",
+    "spice_level": "None",
+    "main_ingredient": "Wheat Flour",
+    "ingredients": ["Whole Wheat Flour", "Water", "Salt", "Butter (optional)"]
+  },
+  {
+    "id": 48,
+    "name": "Lachha Parantha",
+    "category": "Breads",
+    "price": { "full": 25 },
+    "veg_nonveg": "Veg",
+    "spice_level": "None",
+    "main_ingredient": "Wheat Flour",
+    "ingredients": ["Whole Wheat Flour", "Ghee", "Water", "Salt"]
+  },
+  {
+    "id": 49,
+    "name": "Butter Naan",
+    "category": "Breads",
+    "price": { "full": 40 },
+    "veg_nonveg": "Veg",
+    "spice_level": "None",
+    "main_ingredient": "Maida",
+    "ingredients": ["Maida", "Butter", "Yogurt", "Yeast", "Sugar", "Milk", "Salt"]
+  },
+  {
+    "id": 50,
+    "name": "Plain Naan",
+    "category": "Breads",
+    "price": { "full": 30 },
+    "veg_nonveg": "Veg",
+    "spice_level": "None",
+    "main_ingredient": "Maida",
+    "ingredients": ["Maida", "Yogurt", "Yeast", "Sugar", "Oil", "Salt"]
+  },
+  {
+    "id": 51,
+    "name": "Keema Naan",
+    "category": "Breads",
+    "price": { "full": 70 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Minced Meat",
+    "ingredients": ["Maida", "Minced Mutton/Chicken", "Onion", "Ginger", "Garlic", "Green Chilli", "Garam Masala", "Coriander Leaves", "Yogurt", "Salt"]
+  },
+  {
+    "id": 52,
+    "name": "Garlic Naan",
+    "category": "Breads",
+    "price": { "full": 50 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Maida",
+    "ingredients": ["Maida", "Garlic", "Butter", "Yogurt", "Yeast", "Coriander Leaves", "Sugar", "Salt"]
+  },
+  {
+    "id": 53,
+    "name": "Roomali Roti",
+    "category": "Breads",
+    "price": { "full": 10 },
+    "veg_nonveg": "Veg",
+    "spice_level": "None",
+    "main_ingredient": "Maida",
+    "ingredients": ["Maida", "Whole Wheat Flour", "Water", "Oil", "Salt"]
+  },
+  {
+    "id": 54,
+    "name": "Paneer Parantha",
+    "category": "Breads",
+    "price": { "full": 60 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Whole Wheat Flour", "Paneer", "Green Chilli", "Onion", "Ginger", "Coriander Leaves", "Garam Masala", "Ghee", "Salt"]
+  },
+  {
+    "id": 55,
+    "name": "Aloo Parantha",
+    "category": "Breads",
+    "price": { "full": 50 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Potato",
+    "ingredients": ["Whole Wheat Flour", "Potato", "Green Chilli", "Onion", "Ginger", "Coriander Leaves", "Cumin Seeds", "Ghee", "Salt"]
+  },
+  {
+    "id": 56,
+    "name": "Onion Parantha",
+    "category": "Breads",
+    "price": { "full": 50 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Onion",
+    "ingredients": ["Whole Wheat Flour", "Onion", "Green Chilli", "Ginger", "Coriander Leaves", "Cumin Seeds", "Ghee", "Salt"]
+  },
+  {
+    "id": 57,
+    "name": "Pudina Parantha",
+    "category": "Breads",
+    "price": { "full": 40 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Mint",
+    "ingredients": ["Whole Wheat Flour", "Fresh Mint Leaves", "Ghee", "Water", "Salt"]
+  },
+  {
+    "id": 58,
+    "name": "Pudina Naan",
+    "category": "Breads",
+    "price": { "full": 50 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Mint",
+    "ingredients": ["Maida", "Fresh Mint Leaves", "Yogurt", "Yeast", "Butter", "Sugar", "Salt"]
+  },
+  {
+    "id": 59,
+    "name": "Keema Parantha",
+    "category": "Breads",
+    "price": { "full": 70 },
+    "veg_nonveg": "Non-Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Minced Meat",
+    "ingredients": ["Whole Wheat Flour", "Minced Mutton/Chicken", "Onion", "Ginger", "Garlic", "Green Chilli", "Garam Masala", "Coriander Leaves", "Ghee", "Salt"]
+  },
+  {
+    "id": 60,
+    "name": "Green Chilli Parantha",
+    "category": "Breads",
+    "price": { "full": 40 },
+    "veg_nonveg": "Veg",
+    "spice_level": "High",
+    "main_ingredient": "Green Chilli",
+    "ingredients": ["Whole Wheat Flour", "Green Chilli", "Onion", "Coriander Leaves", "Ghee", "Salt"]
+  },
+  {
+    "id": 61,
+    "name": "Lal Mirch Parantha",
+    "category": "Breads",
+    "price": { "full": 40 },
+    "veg_nonveg": "Veg",
+    "spice_level": "High",
+    "main_ingredient": "Red Chilli",
+    "ingredients": ["Whole Wheat Flour", "Red Chilli Paste", "Onion", "Ghee", "Salt"]
+  },
+  {
+    "id": 62,
+    "name": "Missi Roti",
+    "category": "Breads",
+    "price": { "full": 40 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Gram Flour",
+    "ingredients": ["Gram Flour", "Whole Wheat Flour", "Onion", "Green Chilli", "Ginger", "Ajwain", "Ghee", "Salt"]
+  },
+  {
+    "id": 63,
+    "name": "Khameri Roti",
+    "category": "Breads",
+    "price": { "full": 30 },
+    "veg_nonveg": "Veg",
+    "spice_level": "None",
+    "main_ingredient": "Wheat Flour",
+    "ingredients": ["Whole Wheat Flour", "Yeast", "Sugar", "Water", "Ghee", "Salt"]
+  },
+  {
+    "id": 64,
+    "name": "Dal Makhani",
+    "category": "Pure Veg",
+    "price": { "full": 160 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Black Lentils",
+    "ingredients": ["Black Lentils", "Kidney Beans", "Butter", "Cream", "Tomato", "Onion", "Ginger", "Garlic", "Garam Masala", "Fenugreek Leaves", "Salt"]
+  },
+  {
+    "id": 65,
+    "name": "Dal Tadka",
+    "category": "Pure Veg",
+    "price": { "full": 140 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Yellow Lentils",
+    "ingredients": ["Yellow Lentils", "Onion", "Tomato", "Ginger", "Garlic", "Turmeric", "Red Chilli", "Cumin Seeds", "Ghee", "Coriander Leaves", "Salt"]
+  },
+  {
+    "id": 66,
+    "name": "Shahi Paneer",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low-Medium",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Paneer", "Cashew Paste", "Cream", "Yogurt", "Onion", "Tomato", "Saffron", "Cardamom", "Garam Masala", "Butter", "Salt"]
+  },
+  {
+    "id": 67,
+    "name": "Kadai Paneer",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Paneer", "Onion", "Tomato", "Capsicum", "Ginger", "Garlic", "Kadai Masala", "Red Chilli", "Coriander Seeds", "Oil", "Salt"]
+  },
+  {
+    "id": 68,
+    "name": "Paneer Lababdar",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Paneer", "Tomato", "Onion", "Cream", "Butter", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Fenugreek Leaves", "Salt"]
+  },
+  {
+    "id": 69,
+    "name": "Paneer Pasanda",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low-Medium",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Stuffed Paneer", "Cashew Paste", "Cream", "Onion", "Tomato", "Raisins", "Cardamom", "Garam Masala", "Saffron", "Ghee", "Salt"]
+  },
+  {
+    "id": 70,
+    "name": "Handi Spl. Paneer",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Paneer", "Yogurt", "Cream", "Onion", "Tomato", "Ginger", "Garlic", "Garam Masala", "Saffron", "Charcoal Smoke", "Salt"]
+  },
+  {
+    "id": 71,
+    "name": "Mutor Mushroom",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Mushroom & Peas",
+    "ingredients": ["Mushroom", "Green Peas", "Onion", "Tomato", "Ginger", "Garlic", "Turmeric", "Red Chilli", "Garam Masala", "Oil", "Salt"]
+  },
+  {
+    "id": 72,
+    "name": "Kadai Soya Chap",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium-High",
+    "main_ingredient": "Soya",
+    "ingredients": ["Soya Chap", "Onion", "Tomato", "Capsicum", "Ginger", "Garlic", "Kadai Masala", "Red Chilli", "Coriander Seeds", "Oil", "Salt"]
+  },
+  {
+    "id": 73,
+    "name": "Tawa Soya Chap",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "High",
+    "main_ingredient": "Soya",
+    "ingredients": ["Soya Chap", "Onion", "Tomato", "Capsicum", "Green Chilli", "Ginger", "Garlic", "Tawa Masala", "Butter", "Coriander Leaves", "Salt"]
+  },
+  {
+    "id": 74,
+    "name": "Mixed Veg",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Mixed Vegetables",
+    "ingredients": ["Carrot", "Beans", "Peas", "Potato", "Cauliflower", "Onion", "Tomato", "Ginger", "Garlic", "Garam Masala", "Oil", "Salt"]
+  },
+  {
+    "id": 75,
+    "name": "Malai Kofta",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low-Medium",
+    "main_ingredient": "Paneer & Potato",
+    "ingredients": ["Paneer", "Potato", "Cream", "Cashew Paste", "Onion", "Tomato", "Cardamom", "Garam Masala", "Raisins", "Ghee", "Salt"]
+  },
+  {
+    "id": 76,
+    "name": "Mutter Paneer",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Peas & Paneer",
+    "ingredients": ["Paneer", "Green Peas", "Onion", "Tomato", "Ginger", "Garlic", "Turmeric", "Red Chilli", "Garam Masala", "Oil", "Salt"]
+  },
+  {
+    "id": 77,
+    "name": "Paneer Do Pyaza",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Paneer", "Double Onion", "Tomato", "Ginger", "Garlic", "Red Chilli", "Coriander Powder", "Garam Masala", "Oil", "Salt"]
+  },
+  {
+    "id": 78,
+    "name": "Paneer Butter Masala",
+    "category": "Pure Veg",
+    "price": { "full": 199 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low-Medium",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Paneer", "Butter", "Tomato Puree", "Cream", "Cashew Paste", "Onion", "Ginger", "Garlic", "Garam Masala", "Fenugreek Leaves", "Salt"]
+  },
+  {
+    "id": 79,
+    "name": "Paneer Tikka Masala",
+    "category": "Pure Veg",
+    "price": { "full": 160 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Grilled Paneer Tikka", "Tomato Puree", "Onion", "Cream", "Ginger", "Garlic", "Red Chilli", "Garam Masala", "Fenugreek Leaves", "Butter", "Salt"]
+  },
+  {
+    "id": 80,
+    "name": "Palak Paneer / Chana Masala",
+    "category": "Pure Veg",
+    "price": { "full": 160 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Spinach & Paneer",
+    "ingredients": ["Spinach", "Paneer", "Onion", "Tomato", "Ginger", "Garlic", "Green Chilli", "Cream", "Garam Masala", "Ghee", "Salt"]
+  },
+  {
+    "id": 81,
+    "name": "Aaloo Gobhi",
+    "category": "Pure Veg",
+    "price": { "full": 160 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Potato & Cauliflower",
+    "ingredients": ["Potato", "Cauliflower", "Onion", "Tomato", "Ginger", "Garlic", "Turmeric", "Red Chilli", "Cumin Seeds", "Oil", "Salt"]
+  },
+  {
+    "id": 82,
+    "name": "Jeera Aaloo",
+    "category": "Pure Veg",
+    "price": { "full": 140 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Potato",
+    "ingredients": ["Potato", "Cumin Seeds", "Green Chilli", "Ginger", "Turmeric", "Coriander Leaves", "Ghee", "Salt"]
+  },
+  {
+    "id": 83,
+    "name": "Paneer Tikka",
+    "category": "Veg Starters",
+    "price": { "full": 180, "half": 100 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Paneer", "Yogurt", "Capsicum", "Onion", "Tomato", "Ginger", "Garlic", "Red Chilli", "Tikka Masala", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 84,
+    "name": "Paneer Malai Tikka",
+    "category": "Veg Starters",
+    "price": { "full": 199, "half": 110 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Paneer",
+    "ingredients": ["Paneer", "Cream", "Cheese", "Yogurt", "Cashew Paste", "White Pepper", "Cardamom", "Ginger", "Garlic", "Salt"]
+  },
+  {
+    "id": 85,
+    "name": "Mushroom Tikka",
+    "category": "Veg Starters",
+    "price": { "full": 180, "half": 90 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Mushroom",
+    "ingredients": ["Button Mushrooms", "Yogurt", "Ginger", "Garlic", "Red Chilli", "Tikka Masala", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 86,
+    "name": "Mushroom Malai Tikka",
+    "category": "Veg Starters",
+    "price": { "full": 180, "half": 90 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Mushroom",
+    "ingredients": ["Button Mushrooms", "Cream", "Cheese", "Yogurt", "White Pepper", "Cardamom", "Ginger", "Garlic", "Salt"]
+  },
+  {
+    "id": 87,
+    "name": "Soya Malai Chap",
+    "category": "Veg Starters",
+    "price": { "full": 160 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Low",
+    "main_ingredient": "Soya",
+    "ingredients": ["Soya Chap", "Cream", "Cheese", "Yogurt", "White Pepper", "Cardamom", "Ginger", "Garlic", "Cashew Paste", "Salt"]
+  },
+  {
+    "id": 88,
+    "name": "Soya Tandoori Chap",
+    "category": "Veg Starters",
+    "price": { "full": 160 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Soya",
+    "ingredients": ["Soya Chap", "Yogurt", "Tandoori Masala", "Red Chilli", "Ginger", "Garlic", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 89,
+    "name": "Soya Pudina Chap",
+    "category": "Veg Starters",
+    "price": { "full": 160 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Soya & Mint",
+    "ingredients": ["Soya Chap", "Mint", "Coriander", "Yogurt", "Green Chilli", "Ginger", "Garlic", "Lemon Juice", "Oil", "Salt"]
+  },
+  {
+    "id": 90,
+    "name": "Hara Bhara Kabab",
+    "category": "Veg Starters",
+    "price": { "full": 160 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Spinach & Peas",
+    "ingredients": ["Spinach", "Green Peas", "Potato", "Paneer", "Ginger", "Green Chilli", "Garam Masala", "Breadcrumbs", "Coriander Leaves", "Oil", "Salt"]
+  },
+  {
+    "id": 91,
+    "name": "Bharwa Aaloo",
+    "category": "Veg Starters",
+    "price": { "full": 180 },
+    "veg_nonveg": "Veg",
+    "spice_level": "Medium",
+    "main_ingredient": "Potato",
+    "ingredients": ["Large Potato", "Paneer", "Onion", "Green Chilli", "Ginger", "Coriander Leaves", "Garam Masala", "Chaat Masala", "Oil", "Salt"]
+  },
+  {
+    "id": 92,
+    "name": "Boondi Raita",
+    "category": "Raita",
+    "price": { "half": 100 },
+    "veg_nonveg": "Veg",
+    "spice_level": "None",
+    "main_ingredient": "Yogurt & Boondi",
+    "ingredients": ["Yogurt", "Boondi", "Cumin Powder", "Black Salt", "Sugar", "Coriander Leaves", "Salt"]
+  },
+  {
+    "id": 93,
+    "name": "Cucumber Raita",
+    "category": "Raita",
+    "price": { "half": 100 },
+    "veg_nonveg": "Veg",
+    "spice_level": "None",
+    "main_ingredient": "Yogurt & Cucumber",
+    "ingredients": ["Yogurt", "Cucumber", "Cumin Powder", "Black Salt", "Mint Leaves", "Coriander Leaves", "Salt"]
+  },
+  {
+    "id": 94,
+    "name": "Mix Veg Raita",
+    "category": "Raita",
+    "price": { "half": 100 },
+    "veg_nonveg": "Veg",
+    "spice_level": "None",
+    "main_ingredient": "Yogurt & Vegetables",
+    "ingredients": ["Yogurt", "Tomato", "Cucumber", "Onion", "Carrot", "Cumin Powder", "Black Salt", "Coriander Leaves", "Salt"]
+  }
+]

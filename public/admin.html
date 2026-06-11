@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Admin Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    padding:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:10px;
+}
+
+button{
+    margin-right:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🍽 Restaurant Admin Dashboard</h1>
+
+<button onclick="loadOrders()">
+Refresh Orders
+</button>
+
+<br><br>
+
+<div id="orders"></div>
+
+<script>
+
+async function loadOrders(){
+
+    const response =
+        await fetch("/admin/orders");
+
+    const orders =
+        await response.json();
+
+    let html=`
+
+    <table>
+
+        <tr>
+
+            <th>Token</th>
+            <th>Order</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+
+    `;
+
+    orders.forEach(order=>{
+        const itemText = order.items && order.items.length
+            ? order.items.map(item => `${item.name} (₹${item.price.full || item.price.half})`).join(', ')
+            : 'No items';
+
+        html += `
+
+        <tr>
+
+            <td>${order.token}</td>
+
+            <td>
+                <div>${itemText}</div>
+                <div style="font-size:0.85em; color:#666; margin-top:4px;">Total: <strong>₹${order.total || 0}</strong></div>
+            </td>
+
+            <td>${order.status}</td>
+
+            <td>
+
+                <button
+                onclick="updateStatus(
+                '${order.token}',
+                'Preparing'
+                )">
+
+                Preparing
+
+                </button>
+
+                <button
+                onclick="updateStatus(
+                '${order.token}',
+                'Ready'
+                )">
+
+                Ready
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+    });
+
+    html += "</table>";
+
+    document.getElementById("orders")
+        .innerHTML = html;
+}
+
+async function updateStatus(
+    token,
+    status
+){
+
+    await fetch(
+        `/admin/order/${token}`,
+        {
+
+            method:"PUT",
+
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
+
+            body:JSON.stringify({
+                status
+            })
+
+        }
+    );
+
+    loadOrders();
+}
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
