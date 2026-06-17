@@ -7,7 +7,7 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatGroq } from "@langchain/groq";
 import { tool } from "@langchain/core/tools";          // FIX 1: correct import
 import { createReactAgent } from "@langchain/langgraph/prebuilt"; // FIX 1: correct agent import
-import { HumanMessage } from "@langchain/core/messages";
+import { HumanMessage, AIMessage } from "@langchain/core/messages";
 import { z } from "zod";
 
 // FIX 3: dotenv before everything else
@@ -40,15 +40,68 @@ const model = new ChatGroq({
 const bag = [];
 const orders = [];
 
+function createAgentCallbackHandler(requestId) {
+  const formatDetail = (val) => {
+    if (typeof val === 'string') return val;
+    try {
+      return JSON.stringify(val, null, 2);
+    } catch {
+      return String(val);
+    }
+  };
+
+  const addLog = (step, message, details = null) => {
+    const logEntry = {
+      timestamp: new Date().toISOString(),
+      requestId,
+      step,
+      message,
+      details: details ? formatDetail(details) : null
+    };
+    console.log(`[${new Date().toLocaleTimeString()}] [${step}] ${message}`);
+
+    try {
+      const logLine = `[${logEntry.timestamp}] [REQ: ${requestId}] [${step}] ${message}${logEntry.details ? `\nDetails: ${logEntry.details}` : ''}\n---\n`;
+      fs.appendFileSync("./agent.log", logLine, "utf8");
+    } catch (err) {
+      console.error("Failed to write to log file:", err);
+    }
+  };
+
+  return {
+    handleLLMStart: (llm, prompts) => {
+      addLog("LLM_START", "LLM request initiated", { prompts });
+    },
+    handleLLMEnd: (output) => {
+      const texts = output.generations?.flatMap(g => g.map(gi => gi.text || gi.message?.content || ""));
+      addLog("LLM_END", "LLM response received", { responses: texts });
+    },
+    handleToolStart: (tool, input) => {
+      addLog("TOOL_START", `Invoking tool: ${tool.name || 'unknown'}`, { input });
+    },
+    handleToolEnd: (output) => {
+      addLog("TOOL_END", "Tool execution completed", { output });
+    },
+    handleChainStart: (chain, inputs) => {
+      if (chain.name) {
+        addLog("CHAIN_START", `Entering chain: ${chain.name}`, { inputs });
+      }
+    },
+    handleChainEnd: (outputs) => {
+      if (outputs) {
+        addLog("CHAIN_END", "Exited chain", { outputs });
+      }
+    }
+  };
+}
+
 /* -----------------------------
    Helper: format item for LLM
 ----------------------------- */
 
 function formatItem(item) {
-  let priceText = "";
-  if (item.price.full)  priceText += `Full ₹${item.price.full}`;
-  if (item.price.half)  priceText += ` | Half ₹${item.price.half}`;
-  return `• ${item.name} (${item.category}, ${item.veg_nonveg}, Spice: ${item.spice_level}) - ${priceText}`;
+  const price = item.price.full || item.price.half;
+  return `• ${item.name} (${item.category}, ${item.veg_nonveg}, Spice: ${item.spice_level}) - ₹${price}`;
 }
 
 /* -----------------------------
@@ -150,12 +203,13 @@ const viewBagTool = tool(
   async () => {
     if (!bag.length) return "Your bag is empty.";
     const total = bag.reduce((sum, item) => sum + (item.price.full || item.price.half || 0), 0);
-    return `Items in bag:\n${bag.map(i => `• ${i.name} - ₹${i.price.full || i.price.half}`).join("\n")}\n\nTotal: ₹${total}`;
+    const itemLines = bag.map(i => `• ${i.name} - ₹${i.price.full || i.price.half}`).join("\n");
+    return `Items in bag:\n${itemLines}\n\nTotal: ₹${total}`;
   },
   {
     name: "view_cart",
     description: "View all items currently in the customer's bag and the total price",
-    schema: z.object({})  // FIX 5: schema required even for no-arg tools
+    schema: z.object({})
   }
 );
 
@@ -181,7 +235,7 @@ const placeOrderTool = tool(
   {
     name: "place_order",
     description: "Place the current bag as an order. Returns a token number to track the order.",
-    schema: z.object({})  // FIX 5: schema required even for no-arg tools
+    schema: z.object({})
   }
 );
 
@@ -189,7 +243,8 @@ const checkStatusTool = tool(
   async ({ token }) => {
     const order = orders.find(o => o.token.toLowerCase() === token.toLowerCase());
     if (!order) return `❌ No order found with token "${token}". Please check the token and try again.`;
-    return `🍽 Order Status\n\nToken: ${order.token}\nItems: ${order.items.map(i => i.name).join(", ")}\nTotal: ₹${order.total}\nStatus: ${order.status}`;
+    const itemsText = order.items.map(i => i.name).join(", ");
+    return `🍽 Order Status\n\nToken: ${order.token}\nItems: ${itemsText}\nTotal: ${order.total}\nStatus: ${order.status}`;
   },
   {
     name: "check_status",
@@ -273,10 +328,13 @@ app.post("/chat", async (req, res) => {
     const { message, messages } = req.body;
 
     const history = messages
-      ? messages.map(m => new HumanMessage(m.content))  // simplified; extend for multi-role if needed
+      ? messages.map(m => m.role === "user" || m.role === "human" ? new HumanMessage(m.content) : new AIMessage(m.content))
       : [new HumanMessage(message)];
 
-    const result = await agent.invoke({ messages: history });
+    const requestId = "req_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+    const callbackHandler = createAgentCallbackHandler(requestId);
+
+    const result = await agent.invoke({ messages: history }, { callbacks: [callbackHandler] });
 
     const reply = result.messages[result.messages.length - 1].content;
 
@@ -315,6 +373,8 @@ app.get("/order/:token", (req, res) => {
   if (!order) return res.status(404).json({ message: "Order not found" });
   res.json(order);
 });
+
+// Agent activity logs API removed for security
 
 /* -----------------------------
    Start Server

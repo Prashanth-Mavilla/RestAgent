@@ -1,716 +1,920 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Handi Restaurant</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Handi Restaurant</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  :root {
-    --bg:        #0f0d0a;
-    --surface:   #1a1612;
-    --card:      #211d17;
-    --border:    #2e2820;
-    --ember:     #e8620a;
-    --ember-dim: #a04208;
-    --gold:      #d4a017;
-    --cream:     #f0e8d8;
-    --muted:     #7a6f62;
-    --veg:       #4caf6e;
-    --nonveg:    #e05a5a;
-    --text:      #ede5d8;
-  }
+    :root {
+      --bg: #0f0d0a;
+      --surface: #1a1612;
+      --card: #211d17;
+      --border: #2e2820;
+      --ember: #e8620a;
+      --ember-dim: #a04208;
+      --gold: #d4a017;
+      --cream: #f0e8d8;
+      --muted: #7a6f62;
+      --veg: #4caf6e;
+      --nonveg: #e05a5a;
+      --text: #ede5d8;
+    }
 
-  html, body {
-    height: 100vh;
-    overflow: hidden;
-  }
+    html,
+    body {
+      height: 100vh;
+      overflow: hidden;
+    }
 
-  html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    flex-direction: column;
-  }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
 
-  /* ---- HEADER ---- */
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--ember);
-    letter-spacing: -0.5px;
-  }
-  .logo span { color: var(--gold); }
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .cart-btn {
-    background: var(--ember);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s;
-  }
-  .cart-btn:hover { background: #c4530a; }
-  #cart-count {
-    background: var(--gold);
-    color: #000;
-    border-radius: 50%;
-    width: 18px; height: 18px;
-    font-size: 0.7rem;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700;
-  }
+    /* ---- HEADER ---- */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
 
-  /* ---- LAYOUT ---- */
-  .main-layout {
-    display: flex;
-    flex: 1;
-    height: calc(100vh - 61px);
-    overflow: hidden;
-  }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--ember);
+      letter-spacing: -0.5px;
+    }
 
-  /* ---- MENU SIDE ---- */
-  .menu-side {
-    flex: 1;
-    overflow-y: auto;
-    padding: 24px;
-  }
-  .menu-side::-webkit-scrollbar { width: 4px; }
-  .menu-side::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    .logo span {
+      color: var(--gold);
+    }
 
-  /* ---- FILTERS ---- */
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 24px;
-    align-items: center;
-  }
-  .filter-chip {
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .filter-chip:hover { border-color: var(--ember); color: var(--text); }
-  .filter-chip.active { background: var(--ember); border-color: var(--ember); color: #fff; }
-  .filter-chip.veg-active { background: var(--veg); border-color: var(--veg); color: #fff; }
-  .filter-chip.nonveg-active { background: var(--nonveg); border-color: var(--nonveg); color: #fff; }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-  /* ---- CATEGORY SECTION ---- */
-  .category-section { margin-bottom: 36px; }
-  .category-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-  .category-label {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--cream);
-  }
-  .category-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-  .category-count {
-    font-size: 0.75rem;
-    color: var(--muted);
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 2px 8px;
-    border-radius: 10px;
-  }
+    .cart-btn {
+      background: var(--ember);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
 
-  /* ---- DISH GRID ---- */
-  .dish-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 12px;
-  }
+    .cart-btn:hover {
+      background: #c4530a;
+    }
 
-  .dish-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    transition: border-color 0.15s, transform 0.15s;
-    position: relative;
-  }
-  .dish-card:hover { border-color: var(--ember-dim); transform: translateY(-1px); }
+    #cart-count {
+      background: var(--gold);
+      color: #000;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
 
-  .dish-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .dish-name {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--cream);
-    line-height: 1.3;
-  }
-  .veg-dot {
-    width: 14px; height: 14px;
-    border-radius: 2px;
-    border: 2px solid;
-    flex-shrink: 0;
-    margin-top: 2px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .veg-dot::after {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-  .veg-dot.veg { color: var(--veg); border-color: var(--veg); }
-  .veg-dot.nonveg { color: var(--nonveg); border-color: var(--nonveg); }
+    /* ---- LAYOUT ---- */
+    .main-layout {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 61px);
+      overflow: hidden;
+    }
 
-  .dish-meta {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .tag {
-    font-size: 0.68rem;
-    padding: 2px 7px;
-    border-radius: 8px;
-    font-weight: 500;
-  }
-  .tag-spice { background: #2a1a0e; color: #e8a87c; }
-  .tag-ingredient { background: #12201a; color: #7ecfa0; }
+    /* ---- MENU SIDE ---- */
+    .menu-side {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+    }
 
-  .dish-prices {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .price-full {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--gold);
-  }
-  .price-half {
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
+    .menu-side::-webkit-scrollbar {
+      width: 4px;
+    }
 
-  .add-btn {
-    margin-top: auto;
-    background: transparent;
-    border: 1px solid var(--ember-dim);
-    color: var(--ember);
-    border-radius: 8px;
-    padding: 7px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-  }
-  .add-btn:hover { background: var(--ember); color: #fff; border-color: var(--ember); }
-  .add-btn.added { background: var(--ember); color: #fff; border-color: var(--ember); }
+    .menu-side::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
 
-  /* ---- HIGHLIGHTED (AI filter result) ---- */
-  .dish-card.highlight {
-    border-color: var(--ember);
-    box-shadow: 0 0 0 1px var(--ember-dim);
-  }
-  .dish-card.dimmed { opacity: 0.3; }
+    /* ---- FILTERS ---- */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      align-items: center;
+    }
 
-  /* ---- CHAT SIDE ---- */
-  .chat-side {
-    width: 360px;
-    flex-shrink: 0;
-    border-left: 1px solid var(--border);
-    background: var(--surface);
-    display: flex;
-    flex-direction: column;
-  }
+    .filter-chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
 
-  .chat-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .ai-avatar {
-    width: 34px; height: 34px;
-    background: var(--ember);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-  }
-  .chat-title { font-weight: 600; font-size: 0.9rem; color: var(--cream); }
-  .chat-subtitle { font-size: 0.72rem; color: var(--muted); }
-  .online-dot {
-    width: 7px; height: 7px;
-    background: var(--veg);
-    border-radius: 50%;
-    margin-left: auto;
-    box-shadow: 0 0 6px var(--veg);
-  }
+    .filter-chip:hover {
+      border-color: var(--ember);
+      color: var(--text);
+    }
 
-  .chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .chat-messages::-webkit-scrollbar { width: 3px; }
-  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); }
+    .filter-chip.active {
+      background: var(--ember);
+      border-color: var(--ember);
+      color: #fff;
+    }
 
-  .msg {
-    max-width: 85%;
-    padding: 10px 13px;
-    border-radius: 14px;
-    font-size: 0.82rem;
-    line-height: 1.5;
-    white-space: pre-wrap;
-  }
-  .msg.bot {
-    background: var(--card);
-    border: 1px solid var(--border);
-    align-self: flex-start;
-    border-bottom-left-radius: 4px;
-    color: var(--text);
-  }
-  .msg.user {
-    background: var(--ember);
-    color: #fff;
-    align-self: flex-end;
-    border-bottom-right-radius: 4px;
-  }
-  .msg.typing { color: var(--muted); font-style: italic; }
+    .filter-chip.veg-active {
+      background: var(--veg);
+      border-color: var(--veg);
+      color: #fff;
+    }
 
-  /* Quick prompts */
-  .quick-prompts {
-    padding: 0 16px 8px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .quick-btn {
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 0.72rem;
-    padding: 5px 10px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-  .quick-btn:hover { border-color: var(--ember); color: var(--text); }
+    .filter-chip.nonveg-active {
+      background: var(--nonveg);
+      border-color: var(--nonveg);
+      color: #fff;
+    }
 
-  .chat-input-row {
-    padding: 12px 16px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 8px;
-    align-items: flex-end;
-  }
-  #chat-input {
-    flex: 1;
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 10px 13px;
-    border-radius: 10px;
-    font-size: 0.83rem;
-    font-family: 'Inter', sans-serif;
-    resize: none;
-    outline: none;
-    max-height: 100px;
-    line-height: 1.4;
-    transition: border-color 0.15s;
-  }
-  #chat-input:focus { border-color: var(--ember-dim); }
-  #chat-input::placeholder { color: var(--muted); }
-  .send-btn {
-    background: var(--ember);
-    border: none;
-    color: #fff;
-    width: 38px; height: 38px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: background 0.15s;
-  }
-  .send-btn:hover { background: #c4530a; }
+    /* ---- CATEGORY SECTION ---- */
+    .category-section {
+      margin-bottom: 36px;
+    }
 
-  /* ---- CART MODAL ---- */
-  .modal-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    width: 420px;
-    max-width: 95vw;
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-  .modal h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    color: var(--cream);
-    margin-bottom: 16px;
-  }
-  .cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.85rem;
-    gap: 8px;
-  }
-  .cart-item-name { flex: 1; color: var(--text); }
-  .cart-item-price { color: var(--gold); font-weight: 600; }
-  .remove-btn {
-    background: none;
-    border: none;
-    color: var(--muted);
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 2px 6px;
-    border-radius: 4px;
-    transition: color 0.15s;
-  }
-  .remove-btn:hover { color: var(--nonveg); }
-  .cart-total {
-    margin-top: 14px;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--gold);
-    text-align: right;
-  }
-  .cart-actions {
-    margin-top: 16px;
-    display: flex;
-    gap: 10px;
-  }
-  .btn-secondary {
-    flex: 1;
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 600;
-    transition: all 0.15s;
-  }
-  .btn-secondary:hover { border-color: var(--muted); color: var(--text); }
-  .btn-primary {
-    flex: 2;
-    background: var(--ember);
-    border: none;
-    color: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 700;
-    transition: background 0.15s;
-  }
-  .btn-primary:hover { background: #c4530a; }
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
 
-  /* No results */
-  .no-results {
-    text-align: center;
-    color: var(--muted);
-    padding: 40px;
-    font-size: 0.9rem;
-  }
+    .category-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
 
-  @media (max-width: 768px) {
-    html, body { height: auto; overflow: auto; }
-    .main-layout { flex-direction: column; height: auto; overflow: visible; }
-    .chat-side { width: 100%; height: 500px; border-left: none; border-top: 1px solid var(--border); }
-  }
-</style>
+    .category-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .category-count {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* ---- DISH GRID ---- */
+    .dish-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .dish-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: border-color 0.15s, transform 0.15s;
+      position: relative;
+    }
+
+    .dish-card:hover {
+      border-color: var(--ember-dim);
+      transform: translateY(-1px);
+    }
+
+    .dish-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .dish-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.3;
+    }
+
+    .veg-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
+      border: 2px solid;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .veg-dot::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .veg-dot.veg {
+      color: var(--veg);
+      border-color: var(--veg);
+    }
+
+    .veg-dot.nonveg {
+      color: var(--nonveg);
+      border-color: var(--nonveg);
+    }
+
+    .dish-meta {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .tag-spice {
+      background: #2a1a0e;
+      color: #e8a87c;
+    }
+
+    .tag-ingredient {
+      background: #12201a;
+      color: #7ecfa0;
+    }
+
+    .dish-prices {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .price-full {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .price-half {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .add-btn {
+      margin-top: auto;
+      background: transparent;
+      border: 1px solid var(--ember-dim);
+      color: var(--ember);
+      border-radius: 8px;
+      padding: 7px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .add-btn:hover {
+      background: var(--ember);
+      color: #fff;
+      border-color: var(--ember);
+    }
+
+    .add-btn.added {
+      background: var(--ember);
+      color: #fff;
+      border-color: var(--ember);
+    }
+
+    /* ---- HIGHLIGHTED (AI filter result) ---- */
+    .dish-card.highlight {
+      border-color: var(--ember);
+      box-shadow: 0 0 0 1px var(--ember-dim);
+    }
+
+    .dish-card.dimmed {
+      opacity: 0.3;
+    }
+
+    /* ---- CHAT SIDE ---- */
+    .chat-side {
+      width: 360px;
+      flex-shrink: 0;
+      border-left: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ai-avatar {
+      width: 34px;
+      height: 34px;
+      background: var(--ember);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .chat-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--cream);
+    }
+
+    .chat-subtitle {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .online-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--veg);
+      border-radius: 50%;
+      margin-left: auto;
+      box-shadow: 0 0 6px var(--veg);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: var(--border);
+    }
+
+    .msg {
+      max-width: 85%;
+      padding: 10px 13px;
+      border-radius: 14px;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .msg.bot {
+      background: var(--card);
+      border: 1px solid var(--border);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      color: var(--text);
+    }
+
+    .msg.user {
+      background: var(--ember);
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg.typing {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* Quick prompts */
+    .quick-prompts {
+      padding: 0 16px 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .quick-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.72rem;
+      padding: 5px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .quick-btn:hover {
+      border-color: var(--ember);
+      color: var(--text);
+    }
+
+    .chat-input-row {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    #chat-input {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 13px;
+      border-radius: 10px;
+      font-size: 0.83rem;
+      font-family: 'Inter', sans-serif;
+      resize: none;
+      outline: none;
+      max-height: 100px;
+      line-height: 1.4;
+      transition: border-color 0.15s;
+    }
+
+    #chat-input:focus {
+      border-color: var(--ember-dim);
+    }
+
+    #chat-input::placeholder {
+      color: var(--muted);
+    }
+
+    .send-btn {
+      background: var(--ember);
+      border: none;
+      color: #fff;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .send-btn:hover {
+      background: #c4530a;
+    }
+
+    /* ---- CART MODAL ---- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      width: 420px;
+      max-width: 95vw;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--cream);
+      margin-bottom: 16px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+      gap: 8px;
+    }
+
+    .cart-item-name {
+      flex: 1;
+      color: var(--text);
+    }
+
+    .cart-item-price {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .remove-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+
+    .remove-btn:hover {
+      color: var(--nonveg);
+    }
+
+    .cart-total {
+      margin-top: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-align: right;
+    }
+
+    .cart-actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--muted);
+      color: var(--text);
+    }
+
+    .btn-primary {
+      flex: 2;
+      background: var(--ember);
+      border: none;
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: background 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: #c4530a;
+    }
+
+    /* No results */
+    .no-results {
+      text-align: center;
+      color: var(--muted);
+      padding: 40px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+
+      html,
+      body {
+        height: auto;
+        overflow: auto;
+      }
+
+      .main-layout {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+      }
+
+      .chat-side {
+        width: 100%;
+        height: 500px;
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="logo">Handi <span>Restaurant</span></div>
-  <div class="header-right">
-    <button class="cart-btn" onclick="openCart()">
-      🛒 Cart <span id="cart-count">0</span>
-    </button>
-  </div>
-</header>
-
-<!-- MAIN LAYOUT -->
-<div class="main-layout">
-
-  <!-- MENU SIDE -->
-  <div class="menu-side">
-    <!-- Filters -->
-    <div class="filters">
-      <button class="filter-chip active" data-filter="all" onclick="setFilter('all', this)">All</button>
-      <button class="filter-chip" data-filter="veg" onclick="setFilter('veg', this)">🟢 Veg</button>
-      <button class="filter-chip" data-filter="nonveg" onclick="setFilter('nonveg', this)">🔴 Non-Veg</button>
-      <button class="filter-chip" data-filter="Non Veg Starter" onclick="setFilter('Non Veg Starter', this)">Starters</button>
-      <button class="filter-chip" data-filter="Non Veg Main Course" onclick="setFilter('Non Veg Main Course', this)">Main Course</button>
-      <button class="filter-chip" data-filter="Breads" onclick="setFilter('Breads', this)">Breads</button>
-      <button class="filter-chip" data-filter="Roomali Rolls" onclick="setFilter('Roomali Rolls', this)">Rolls</button>
-      <button class="filter-chip" data-filter="Rice" onclick="setFilter('Rice', this)">Rice</button>
-      <button class="filter-chip" data-filter="Pure Veg" onclick="setFilter('Pure Veg', this)">Pure Veg</button>
-      <button class="filter-chip" data-filter="Veg Starters" onclick="setFilter('Veg Starters', this)">Veg Starters</button>
-      <button class="filter-chip" data-filter="Raita" onclick="setFilter('Raita', this)">Raita</button>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">Handi <span>Restaurant</span></div>
+    <div class="header-right">
+      <button class="cart-btn" onclick="openCart()">
+        🛒 Cart <span id="cart-count">0</span>
+      </button>
     </div>
+  </header>
 
-    <!-- Menu Grid -->
-    <div id="menu-container"></div>
-  </div>
+  <!-- MAIN LAYOUT -->
+  <div class="main-layout">
 
-  <!-- CHAT SIDE -->
-  <div class="chat-side">
-    <div class="chat-header">
-      <div class="ai-avatar">🍽</div>
-      <div>
-        <div class="chat-title">Handi Assistant</div>
-        <div class="chat-subtitle">Ask me anything about the menu</div>
+    <!-- MENU SIDE -->
+    <div class="menu-side">
+      <!-- Filters -->
+      <div class="filters">
+        <button class="filter-chip active" data-filter="all" onclick="setFilter('all', this)">All</button>
+        <button class="filter-chip" data-filter="veg" onclick="setFilter('veg', this)">🟢 Veg</button>
+        <button class="filter-chip" data-filter="nonveg" onclick="setFilter('nonveg', this)">🔴 Non-Veg</button>
+        <button class="filter-chip" data-filter="Non Veg Starter"
+          onclick="setFilter('Non Veg Starter', this)">Starters</button>
+        <button class="filter-chip" data-filter="Non Veg Main Course"
+          onclick="setFilter('Non Veg Main Course', this)">Main Course</button>
+        <button class="filter-chip" data-filter="Breads" onclick="setFilter('Breads', this)">Breads</button>
+        <button class="filter-chip" data-filter="Roomali Rolls"
+          onclick="setFilter('Roomali Rolls', this)">Rolls</button>
+        <button class="filter-chip" data-filter="Rice" onclick="setFilter('Rice', this)">Rice</button>
+        <button class="filter-chip" data-filter="Pure Veg" onclick="setFilter('Pure Veg', this)">Pure Veg</button>
+        <button class="filter-chip" data-filter="Veg Starters" onclick="setFilter('Veg Starters', this)">Veg
+          Starters</button>
+        <button class="filter-chip" data-filter="Raita" onclick="setFilter('Raita', this)">Raita</button>
       </div>
-      <div class="online-dot"></div>
+
+      <!-- Menu Grid -->
+      <div id="menu-container"></div>
     </div>
 
-    <div class="chat-messages" id="chat-messages">
-      <div class="msg bot">Namaste! 🙏 I'm your Handi Restaurant assistant.
+    <!-- CHAT SIDE -->
+    <div class="chat-side">
+      <div class="chat-header">
+        <div class="ai-avatar">🍽</div>
+        <div>
+          <div class="chat-title">Handi Assistant</div>
+          <div class="chat-subtitle">Ask me anything about the menu</div>
+        </div>
+        <div class="online-dot"></div>
+      </div>
 
-Ask me to:
-• Find dishes by spice level
-• Suggest veg/non-veg options
-• Help you order
-• Check your order status</div>
-    </div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="msg bot">Namaste! 🙏 I'm your Handi Restaurant assistant.
 
-    <div class="quick-prompts">
-      <button class="quick-btn" onclick="sendQuick('Show me veg dishes under ₹200')">Veg under ₹200</button>
-      <button class="quick-btn" onclick="sendQuick('Suggest something spicy')">Spicy dishes</button>
-      <button class="quick-btn" onclick="sendQuick('What starters do you have?')">Starters</button>
-      <button class="quick-btn" onclick="sendQuick('Show me chicken dishes')">Chicken</button>
-      <button class="quick-btn" onclick="sendQuick('Recommend something mild for me')">Mild options</button>
-    </div>
+          Ask me to:
+          • Find dishes by spice level
+          • Suggest veg/non-veg options
+          • Help you order
+          • Check your order status</div>
+      </div>
 
-    <div class="chat-input-row">
-      <textarea id="chat-input" rows="1" placeholder="Ask about the menu or place an order…"
-        onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-      <button class="send-btn" onclick="sendMessage()">➤</button>
+      <div class="quick-prompts">
+        <button class="quick-btn" onclick="sendQuick('Show me veg dishes under ₹200')">Veg under ₹200</button>
+        <button class="quick-btn" onclick="sendQuick('Suggest something spicy')">Spicy dishes</button>
+        <button class="quick-btn" onclick="sendQuick('What starters do you have?')">Starters</button>
+        <button class="quick-btn" onclick="sendQuick('Show me chicken dishes')">Chicken</button>
+        <button class="quick-btn" onclick="sendQuick('Recommend something mild for me')">Mild options</button>
+      </div>
+
+      <div class="chat-input-row">
+        <textarea id="chat-input" rows="1" placeholder="Ask about the menu or place an order…"
+          onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button class="send-btn" onclick="sendMessage()">➤</button>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- CART MODAL -->
-<div class="modal-overlay" id="cart-modal">
-  <div class="modal">
-    <h2>🛒 Your Order</h2>
-    <div id="cart-items-list"></div>
-    <div class="cart-total" id="cart-total"></div>
-    <div class="cart-actions">
-      <button class="btn-secondary" onclick="closeCart()">Keep Browsing</button>
-      <button class="btn-primary" onclick="placeOrder()">Place Order via Chat →</button>
+  <!-- CART MODAL -->
+  <div class="modal-overlay" id="cart-modal">
+    <div class="modal">
+      <h2>🛒 Your Order</h2>
+      <div id="cart-items-list"></div>
+      <div class="cart-total" id="cart-total"></div>
+      <div class="cart-actions">
+        <button class="btn-secondary" onclick="closeCart()">Keep Browsing</button>
+        <button class="btn-primary" onclick="placeOrder()">Place Order via Chat →</button>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-// ===================== MENU DATA =====================
-const menuData = [
-  { id:1,  name:"Tandoori Chicken",              category:"Non Veg Starter",     price:{full:360,half:200},  veg_nonveg:"Non-Veg", spice_level:"Medium-High", main_ingredient:"Chicken" },
-  { id:2,  name:"Afgani Chicken",                category:"Non Veg Starter",     price:{full:400,half:220},  veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:3,  name:"Chicken Tangri",                category:"Non Veg Starter",     price:{full:250,half:130},  veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:4,  name:"Afgani Tangri",                 category:"Non Veg Starter",     price:{full:280,half:140},  veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:5,  name:"Chicken Malai Tikka",           category:"Non Veg Starter",     price:{full:230,half:120},  veg_nonveg:"Non-Veg", spice_level:"Low",         main_ingredient:"Chicken" },
-  { id:6,  name:"Chicken Hariyali Tikka",        category:"Non Veg Starter",     price:{full:250,half:130},  veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:7,  name:"Kalmi Kabab",                   category:"Non Veg Starter",     price:{full:250,half:130},  veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:8,  name:"Mutton Kabab",                  category:"Non Veg Starter",     price:{full:300,half:160},  veg_nonveg:"Non-Veg", spice_level:"Medium-High", main_ingredient:"Mutton" },
-  { id:9,  name:"Mutton Seekh Kabab",            category:"Non Veg Starter",     price:{full:250,half:130},  veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Mutton" },
-  { id:10, name:"Mutton Barra",                  category:"Non Veg Starter",     price:{full:480,half:240},  veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Mutton" },
-  { id:11, name:"Chicken Seekh Kabab",           category:"Non Veg Starter",     price:{full:230,half:120},  veg_nonveg:"Non-Veg", spice_level:"Medium-High", main_ingredient:"Chicken" },
-  { id:12, name:"Fish Tikka",                    category:"Non Veg Starter",     price:{full:280},           veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Fish" },
-  { id:13, name:"Fish Surmai/Sole",              category:"Non Veg Starter",     price:{full:330},           veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Fish" },
-  { id:14, name:"Fish Pamphlet",                 category:"Non Veg Starter",     price:{full:350},           veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Fish" },
-  { id:15, name:"Kali Mirch Tikka",              category:"Non Veg Starter",     price:{full:300},           veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Chicken" },
-  { id:16, name:"Butter Chicken (Boneless)",     category:"Non Veg Main Course", price:{full:550,half:330},  veg_nonveg:"Non-Veg", spice_level:"Low-Medium",  main_ingredient:"Chicken" },
-  { id:17, name:"Butter Chicken",                category:"Non Veg Main Course", price:{full:500,half:300},  veg_nonveg:"Non-Veg", spice_level:"Low-Medium",  main_ingredient:"Chicken" },
-  { id:18, name:"Kadai Chicken",                 category:"Non Veg Main Course", price:{full:500,half:300},  veg_nonveg:"Non-Veg", spice_level:"Medium-High", main_ingredient:"Chicken" },
-  { id:19, name:"Chicken Lababdar",              category:"Non Veg Main Course", price:{full:500,half:300},  veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:20, name:"Chicken Do Pyaza",              category:"Non Veg Main Course", price:{full:500,half:300},  veg_nonveg:"Non-Veg", spice_level:"Medium-High", main_ingredient:"Chicken" },
-  { id:21, name:"Handi Spl. Chicken",            category:"Non Veg Main Course", price:{full:500,half:300},  veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:22, name:"Chicken Curry",                 category:"Non Veg Main Course", price:{full:500,half:300},  veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:23, name:"Tawa Chicken",                  category:"Non Veg Main Course", price:{full:500,half:300},  veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Chicken" },
-  { id:24, name:"Chicken Rara",                  category:"Non Veg Main Course", price:{full:550,half:330},  veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Chicken" },
-  { id:25, name:"Chicken Masala",                category:"Non Veg Main Course", price:{full:550,half:330},  veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Chicken" },
-  { id:26, name:"Chicken Kali Mirch",            category:"Non Veg Main Course", price:{full:550,half:330},  veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Chicken" },
-  { id:27, name:"Chicken Methi Malai",           category:"Non Veg Main Course", price:{full:550,half:330},  veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:28, name:"Chicken Tikka Masala",          category:"Non Veg Main Course", price:{full:330,half:200},  veg_nonveg:"Non-Veg", spice_level:"Medium-High", main_ingredient:"Chicken" },
-  { id:29, name:"Butter Chicken Tikka",          category:"Non Veg Main Course", price:{full:330,half:200},  veg_nonveg:"Non-Veg", spice_level:"Low-Medium",  main_ingredient:"Chicken" },
-  { id:30, name:"Mutton Korma",                  category:"Non Veg Main Course", price:{full:280},           veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Mutton" },
-  { id:31, name:"Mutton Rogan Josh",             category:"Non Veg Main Course", price:{full:280},           veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Mutton" },
-  { id:32, name:"Mutton Rara",                   category:"Non Veg Main Course", price:{full:330},           veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Mutton" },
-  { id:33, name:"Egg Curry",                     category:"Non Veg Main Course", price:{full:160},           veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Egg" },
-  { id:34, name:"Fish Curry",                    category:"Non Veg Main Course", price:{full:300},           veg_nonveg:"Non-Veg", spice_level:"Medium-High", main_ingredient:"Fish" },
-  { id:35, name:"Spl. Shawarma Roll",            category:"Roomali Rolls",       price:{full:60},            veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:36, name:"Chicken Tikka Roll",            category:"Roomali Rolls",       price:{full:120},           veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Chicken" },
-  { id:37, name:"Chicken Malai Tikka Roll",      category:"Roomali Rolls",       price:{full:130},           veg_nonveg:"Non-Veg", spice_level:"Low",         main_ingredient:"Chicken" },
-  { id:38, name:"Chicken Seekh Kabab Roll",      category:"Roomali Rolls",       price:{full:120},           veg_nonveg:"Non-Veg", spice_level:"Medium-High", main_ingredient:"Chicken" },
-  { id:39, name:"Mutton Seekh Kabab Roll",       category:"Roomali Rolls",       price:{full:130},           veg_nonveg:"Non-Veg", spice_level:"High",        main_ingredient:"Mutton" },
-  { id:40, name:"Paneer Tikka Roll",             category:"Roomali Rolls",       price:{full:100},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Paneer" },
-  { id:41, name:"Mushroom Tikka Roll",           category:"Roomali Rolls",       price:{full:90},            veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Mushroom" },
-  { id:42, name:"Soya Chap Roll",                category:"Roomali Rolls",       price:{full:90},            veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Soya" },
-  { id:43, name:"Jeera Rice",                    category:"Rice",                price:{full:120},           veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Rice" },
-  { id:44, name:"Peas Pulao",                    category:"Rice",                price:{full:130},           veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Rice" },
-  { id:45, name:"Veg Biryani",                   category:"Rice",                price:{full:160},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Rice" },
-  { id:46, name:"Chicken Biryani",               category:"Rice",                price:{full:200},           veg_nonveg:"Non-Veg", spice_level:"Medium-High", main_ingredient:"Chicken" },
-  { id:47, name:"Tandoori Roti / Butter Roti",   category:"Breads",              price:{full:15},            veg_nonveg:"Veg",     spice_level:"None",        main_ingredient:"Wheat Flour" },
-  { id:48, name:"Lachha Parantha",               category:"Breads",              price:{full:25},            veg_nonveg:"Veg",     spice_level:"None",        main_ingredient:"Wheat Flour" },
-  { id:49, name:"Butter Naan",                   category:"Breads",              price:{full:40},            veg_nonveg:"Veg",     spice_level:"None",        main_ingredient:"Maida" },
-  { id:50, name:"Plain Naan",                    category:"Breads",              price:{full:30},            veg_nonveg:"Veg",     spice_level:"None",        main_ingredient:"Maida" },
-  { id:51, name:"Keema Naan",                    category:"Breads",              price:{full:70},            veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Minced Meat" },
-  { id:52, name:"Garlic Naan",                   category:"Breads",              price:{full:50},            veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Maida" },
-  { id:53, name:"Roomali Roti",                  category:"Breads",              price:{full:10},            veg_nonveg:"Veg",     spice_level:"None",        main_ingredient:"Maida" },
-  { id:54, name:"Paneer Parantha",               category:"Breads",              price:{full:60},            veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Paneer" },
-  { id:55, name:"Aloo Parantha",                 category:"Breads",              price:{full:50},            veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Potato" },
-  { id:56, name:"Onion Parantha",                category:"Breads",              price:{full:50},            veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Onion" },
-  { id:57, name:"Pudina Parantha",               category:"Breads",              price:{full:40},            veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Mint" },
-  { id:58, name:"Pudina Naan",                   category:"Breads",              price:{full:50},            veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Mint" },
-  { id:59, name:"Keema Parantha",                category:"Breads",              price:{full:70},            veg_nonveg:"Non-Veg", spice_level:"Medium",      main_ingredient:"Minced Meat" },
-  { id:60, name:"Green Chilli Parantha",         category:"Breads",              price:{full:40},            veg_nonveg:"Veg",     spice_level:"High",        main_ingredient:"Green Chilli" },
-  { id:61, name:"Lal Mirch Parantha",            category:"Breads",              price:{full:40},            veg_nonveg:"Veg",     spice_level:"High",        main_ingredient:"Red Chilli" },
-  { id:62, name:"Missi Roti",                    category:"Breads",              price:{full:40},            veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Gram Flour" },
-  { id:63, name:"Khameri Roti",                  category:"Breads",              price:{full:30},            veg_nonveg:"Veg",     spice_level:"None",        main_ingredient:"Wheat Flour" },
-  { id:64, name:"Dal Makhani",                   category:"Pure Veg",            price:{full:160},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Black Lentils" },
-  { id:65, name:"Dal Tadka",                     category:"Pure Veg",            price:{full:140},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Yellow Lentils" },
-  { id:66, name:"Shahi Paneer",                  category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Low-Medium",  main_ingredient:"Paneer" },
-  { id:67, name:"Kadai Paneer",                  category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Medium-High", main_ingredient:"Paneer" },
-  { id:68, name:"Paneer Lababdar",               category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Paneer" },
-  { id:69, name:"Paneer Pasanda",                category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Low-Medium",  main_ingredient:"Paneer" },
-  { id:70, name:"Handi Spl. Paneer",             category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Paneer" },
-  { id:71, name:"Mutor Mushroom",                category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Mushroom & Peas" },
-  { id:72, name:"Kadai Soya Chap",               category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Medium-High", main_ingredient:"Soya" },
-  { id:73, name:"Tawa Soya Chap",                category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"High",        main_ingredient:"Soya" },
-  { id:74, name:"Mixed Veg",                     category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Mixed Vegetables" },
-  { id:75, name:"Malai Kofta",                   category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Low-Medium",  main_ingredient:"Paneer & Potato" },
-  { id:76, name:"Mutter Paneer",                 category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Peas & Paneer" },
-  { id:77, name:"Paneer Do Pyaza",               category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Paneer" },
-  { id:78, name:"Paneer Butter Masala",          category:"Pure Veg",            price:{full:199},           veg_nonveg:"Veg",     spice_level:"Low-Medium",  main_ingredient:"Paneer" },
-  { id:79, name:"Paneer Tikka Masala",           category:"Pure Veg",            price:{full:160},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Paneer" },
-  { id:80, name:"Palak Paneer / Chana Masala",   category:"Pure Veg",            price:{full:160},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Spinach & Paneer" },
-  { id:81, name:"Aaloo Gobhi",                   category:"Pure Veg",            price:{full:160},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Potato & Cauliflower" },
-  { id:82, name:"Jeera Aaloo",                   category:"Pure Veg",            price:{full:140},           veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Potato" },
-  { id:83, name:"Paneer Tikka",                  category:"Veg Starters",        price:{full:180,half:100},  veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Paneer" },
-  { id:84, name:"Paneer Malai Tikka",            category:"Veg Starters",        price:{full:199,half:110},  veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Paneer" },
-  { id:85, name:"Mushroom Tikka",                category:"Veg Starters",        price:{full:180,half:90},   veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Mushroom" },
-  { id:86, name:"Mushroom Malai Tikka",          category:"Veg Starters",        price:{full:180,half:90},   veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Mushroom" },
-  { id:87, name:"Soya Malai Chap",               category:"Veg Starters",        price:{full:160},           veg_nonveg:"Veg",     spice_level:"Low",         main_ingredient:"Soya" },
-  { id:88, name:"Soya Tandoori Chap",            category:"Veg Starters",        price:{full:160},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Soya" },
-  { id:89, name:"Soya Pudina Chap",              category:"Veg Starters",        price:{full:160},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Soya & Mint" },
-  { id:90, name:"Hara Bhara Kabab",              category:"Veg Starters",        price:{full:160},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Spinach & Peas" },
-  { id:91, name:"Bharwa Aaloo",                  category:"Veg Starters",        price:{full:180},           veg_nonveg:"Veg",     spice_level:"Medium",      main_ingredient:"Potato" },
-  { id:92, name:"Boondi Raita",                  category:"Raita",               price:{half:100},           veg_nonveg:"Veg",     spice_level:"None",        main_ingredient:"Yogurt & Boondi" },
-  { id:93, name:"Cucumber Raita",                category:"Raita",               price:{half:100},           veg_nonveg:"Veg",     spice_level:"None",        main_ingredient:"Yogurt & Cucumber" },
-  { id:94, name:"Mix Veg Raita",                 category:"Raita",               price:{half:100},           veg_nonveg:"Veg",     spice_level:"None",        main_ingredient:"Yogurt & Vegetables" },
-];
+  <script>
+    // ===================== MENU DATA =====================
+    const menuData = [
+      { id: 1, name: "Tandoori Chicken", category: "Non Veg Starter", price: { full: 360, half: 200 }, veg_nonveg: "Non-Veg", spice_level: "Medium-High", main_ingredient: "Chicken" },
+      { id: 2, name: "Afgani Chicken", category: "Non Veg Starter", price: { full: 400, half: 220 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 3, name: "Chicken Tangri", category: "Non Veg Starter", price: { full: 250, half: 130 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 4, name: "Afgani Tangri", category: "Non Veg Starter", price: { full: 280, half: 140 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 5, name: "Chicken Malai Tikka", category: "Non Veg Starter", price: { full: 230, half: 120 }, veg_nonveg: "Non-Veg", spice_level: "Low", main_ingredient: "Chicken" },
+      { id: 6, name: "Chicken Hariyali Tikka", category: "Non Veg Starter", price: { full: 250, half: 130 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 7, name: "Kalmi Kabab", category: "Non Veg Starter", price: { full: 250, half: 130 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 8, name: "Mutton Kabab", category: "Non Veg Starter", price: { full: 300, half: 160 }, veg_nonveg: "Non-Veg", spice_level: "Medium-High", main_ingredient: "Mutton" },
+      { id: 9, name: "Mutton Seekh Kabab", category: "Non Veg Starter", price: { full: 250, half: 130 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Mutton" },
+      { id: 10, name: "Mutton Barra", category: "Non Veg Starter", price: { full: 480, half: 240 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Mutton" },
+      { id: 11, name: "Chicken Seekh Kabab", category: "Non Veg Starter", price: { full: 230, half: 120 }, veg_nonveg: "Non-Veg", spice_level: "Medium-High", main_ingredient: "Chicken" },
+      { id: 12, name: "Fish Tikka", category: "Non Veg Starter", price: { full: 280 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Fish" },
+      { id: 13, name: "Fish Surmai/Sole", category: "Non Veg Starter", price: { full: 330 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Fish" },
+      { id: 14, name: "Fish Pamphlet", category: "Non Veg Starter", price: { full: 350 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Fish" },
+      { id: 15, name: "Kali Mirch Tikka", category: "Non Veg Starter", price: { full: 300 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Chicken" },
+      { id: 16, name: "Butter Chicken (Boneless)", category: "Non Veg Main Course", price: { full: 550, half: 330 }, veg_nonveg: "Non-Veg", spice_level: "Low-Medium", main_ingredient: "Chicken" },
+      { id: 17, name: "Butter Chicken", category: "Non Veg Main Course", price: { full: 500, half: 300 }, veg_nonveg: "Non-Veg", spice_level: "Low-Medium", main_ingredient: "Chicken" },
+      { id: 18, name: "Kadai Chicken", category: "Non Veg Main Course", price: { full: 500, half: 300 }, veg_nonveg: "Non-Veg", spice_level: "Medium-High", main_ingredient: "Chicken" },
+      { id: 19, name: "Chicken Lababdar", category: "Non Veg Main Course", price: { full: 500, half: 300 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 20, name: "Chicken Do Pyaza", category: "Non Veg Main Course", price: { full: 500, half: 300 }, veg_nonveg: "Non-Veg", spice_level: "Medium-High", main_ingredient: "Chicken" },
+      { id: 21, name: "Handi Spl. Chicken", category: "Non Veg Main Course", price: { full: 500, half: 300 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 22, name: "Chicken Curry", category: "Non Veg Main Course", price: { full: 500, half: 300 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 23, name: "Tawa Chicken", category: "Non Veg Main Course", price: { full: 500, half: 300 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Chicken" },
+      { id: 24, name: "Chicken Rara", category: "Non Veg Main Course", price: { full: 550, half: 330 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Chicken" },
+      { id: 25, name: "Chicken Masala", category: "Non Veg Main Course", price: { full: 550, half: 330 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Chicken" },
+      { id: 26, name: "Chicken Kali Mirch", category: "Non Veg Main Course", price: { full: 550, half: 330 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Chicken" },
+      { id: 27, name: "Chicken Methi Malai", category: "Non Veg Main Course", price: { full: 550, half: 330 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 28, name: "Chicken Tikka Masala", category: "Non Veg Main Course", price: { full: 330, half: 200 }, veg_nonveg: "Non-Veg", spice_level: "Medium-High", main_ingredient: "Chicken" },
+      { id: 29, name: "Butter Chicken Tikka", category: "Non Veg Main Course", price: { full: 330, half: 200 }, veg_nonveg: "Non-Veg", spice_level: "Low-Medium", main_ingredient: "Chicken" },
+      { id: 30, name: "Mutton Korma", category: "Non Veg Main Course", price: { full: 280 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Mutton" },
+      { id: 31, name: "Mutton Rogan Josh", category: "Non Veg Main Course", price: { full: 280 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Mutton" },
+      { id: 32, name: "Mutton Rara", category: "Non Veg Main Course", price: { full: 330 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Mutton" },
+      { id: 33, name: "Egg Curry", category: "Non Veg Main Course", price: { full: 160 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Egg" },
+      { id: 34, name: "Fish Curry", category: "Non Veg Main Course", price: { full: 300 }, veg_nonveg: "Non-Veg", spice_level: "Medium-High", main_ingredient: "Fish" },
+      { id: 35, name: "Spl. Shawarma Roll", category: "Roomali Rolls", price: { full: 60 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 36, name: "Chicken Tikka Roll", category: "Roomali Rolls", price: { full: 120 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Chicken" },
+      { id: 37, name: "Chicken Malai Tikka Roll", category: "Roomali Rolls", price: { full: 130 }, veg_nonveg: "Non-Veg", spice_level: "Low", main_ingredient: "Chicken" },
+      { id: 38, name: "Chicken Seekh Kabab Roll", category: "Roomali Rolls", price: { full: 120 }, veg_nonveg: "Non-Veg", spice_level: "Medium-High", main_ingredient: "Chicken" },
+      { id: 39, name: "Mutton Seekh Kabab Roll", category: "Roomali Rolls", price: { full: 130 }, veg_nonveg: "Non-Veg", spice_level: "High", main_ingredient: "Mutton" },
+      { id: 40, name: "Paneer Tikka Roll", category: "Roomali Rolls", price: { full: 100 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Paneer" },
+      { id: 41, name: "Mushroom Tikka Roll", category: "Roomali Rolls", price: { full: 90 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Mushroom" },
+      { id: 42, name: "Soya Chap Roll", category: "Roomali Rolls", price: { full: 90 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Soya" },
+      { id: 43, name: "Jeera Rice", category: "Rice", price: { full: 120 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Rice" },
+      { id: 44, name: "Peas Pulao", category: "Rice", price: { full: 130 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Rice" },
+      { id: 45, name: "Veg Biryani", category: "Rice", price: { full: 160 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Rice" },
+      { id: 46, name: "Chicken Biryani", category: "Rice", price: { full: 200 }, veg_nonveg: "Non-Veg", spice_level: "Medium-High", main_ingredient: "Chicken" },
+      { id: 47, name: "Tandoori Roti / Butter Roti", category: "Breads", price: { full: 15 }, veg_nonveg: "Veg", spice_level: "None", main_ingredient: "Wheat Flour" },
+      { id: 48, name: "Lachha Parantha", category: "Breads", price: { full: 25 }, veg_nonveg: "Veg", spice_level: "None", main_ingredient: "Wheat Flour" },
+      { id: 49, name: "Butter Naan", category: "Breads", price: { full: 40 }, veg_nonveg: "Veg", spice_level: "None", main_ingredient: "Maida" },
+      { id: 50, name: "Plain Naan", category: "Breads", price: { full: 30 }, veg_nonveg: "Veg", spice_level: "None", main_ingredient: "Maida" },
+      { id: 51, name: "Keema Naan", category: "Breads", price: { full: 70 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Minced Meat" },
+      { id: 52, name: "Garlic Naan", category: "Breads", price: { full: 50 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Maida" },
+      { id: 53, name: "Roomali Roti", category: "Breads", price: { full: 10 }, veg_nonveg: "Veg", spice_level: "None", main_ingredient: "Maida" },
+      { id: 54, name: "Paneer Parantha", category: "Breads", price: { full: 60 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Paneer" },
+      { id: 55, name: "Aloo Parantha", category: "Breads", price: { full: 50 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Potato" },
+      { id: 56, name: "Onion Parantha", category: "Breads", price: { full: 50 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Onion" },
+      { id: 57, name: "Pudina Parantha", category: "Breads", price: { full: 40 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Mint" },
+      { id: 58, name: "Pudina Naan", category: "Breads", price: { full: 50 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Mint" },
+      { id: 59, name: "Keema Parantha", category: "Breads", price: { full: 70 }, veg_nonveg: "Non-Veg", spice_level: "Medium", main_ingredient: "Minced Meat" },
+      { id: 60, name: "Green Chilli Parantha", category: "Breads", price: { full: 40 }, veg_nonveg: "Veg", spice_level: "High", main_ingredient: "Green Chilli" },
+      { id: 61, name: "Lal Mirch Parantha", category: "Breads", price: { full: 40 }, veg_nonveg: "Veg", spice_level: "High", main_ingredient: "Red Chilli" },
+      { id: 62, name: "Missi Roti", category: "Breads", price: { full: 40 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Gram Flour" },
+      { id: 63, name: "Khameri Roti", category: "Breads", price: { full: 30 }, veg_nonveg: "Veg", spice_level: "None", main_ingredient: "Wheat Flour" },
+      { id: 64, name: "Dal Makhani", category: "Pure Veg", price: { full: 160 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Black Lentils" },
+      { id: 65, name: "Dal Tadka", category: "Pure Veg", price: { full: 140 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Yellow Lentils" },
+      { id: 66, name: "Shahi Paneer", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Low-Medium", main_ingredient: "Paneer" },
+      { id: 67, name: "Kadai Paneer", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Medium-High", main_ingredient: "Paneer" },
+      { id: 68, name: "Paneer Lababdar", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Paneer" },
+      { id: 69, name: "Paneer Pasanda", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Low-Medium", main_ingredient: "Paneer" },
+      { id: 70, name: "Handi Spl. Paneer", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Paneer" },
+      { id: 71, name: "Mutor Mushroom", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Mushroom & Peas" },
+      { id: 72, name: "Kadai Soya Chap", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Medium-High", main_ingredient: "Soya" },
+      { id: 73, name: "Tawa Soya Chap", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "High", main_ingredient: "Soya" },
+      { id: 74, name: "Mixed Veg", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Mixed Vegetables" },
+      { id: 75, name: "Malai Kofta", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Low-Medium", main_ingredient: "Paneer & Potato" },
+      { id: 76, name: "Mutter Paneer", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Peas & Paneer" },
+      { id: 77, name: "Paneer Do Pyaza", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Paneer" },
+      { id: 78, name: "Paneer Butter Masala", category: "Pure Veg", price: { full: 199 }, veg_nonveg: "Veg", spice_level: "Low-Medium", main_ingredient: "Paneer" },
+      { id: 79, name: "Paneer Tikka Masala", category: "Pure Veg", price: { full: 160 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Paneer" },
+      { id: 80, name: "Palak Paneer / Chana Masala", category: "Pure Veg", price: { full: 160 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Spinach & Paneer" },
+      { id: 81, name: "Aaloo Gobhi", category: "Pure Veg", price: { full: 160 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Potato & Cauliflower" },
+      { id: 82, name: "Jeera Aaloo", category: "Pure Veg", price: { full: 140 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Potato" },
+      { id: 83, name: "Paneer Tikka", category: "Veg Starters", price: { full: 180, half: 100 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Paneer" },
+      { id: 84, name: "Paneer Malai Tikka", category: "Veg Starters", price: { full: 199, half: 110 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Paneer" },
+      { id: 85, name: "Mushroom Tikka", category: "Veg Starters", price: { full: 180, half: 90 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Mushroom" },
+      { id: 86, name: "Mushroom Malai Tikka", category: "Veg Starters", price: { full: 180, half: 90 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Mushroom" },
+      { id: 87, name: "Soya Malai Chap", category: "Veg Starters", price: { full: 160 }, veg_nonveg: "Veg", spice_level: "Low", main_ingredient: "Soya" },
+      { id: 88, name: "Soya Tandoori Chap", category: "Veg Starters", price: { full: 160 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Soya" },
+      { id: 89, name: "Soya Pudina Chap", category: "Veg Starters", price: { full: 160 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Soya & Mint" },
+      { id: 90, name: "Hara Bhara Kabab", category: "Veg Starters", price: { full: 160 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Spinach & Peas" },
+      { id: 91, name: "Bharwa Aaloo", category: "Veg Starters", price: { full: 180 }, veg_nonveg: "Veg", spice_level: "Medium", main_ingredient: "Potato" },
+      { id: 92, name: "Boondi Raita", category: "Raita", price: { half: 100 }, veg_nonveg: "Veg", spice_level: "None", main_ingredient: "Yogurt & Boondi" },
+      { id: 93, name: "Cucumber Raita", category: "Raita", price: { half: 100 }, veg_nonveg: "Veg", spice_level: "None", main_ingredient: "Yogurt & Cucumber" },
+      { id: 94, name: "Mix Veg Raita", category: "Raita", price: { half: 100 }, veg_nonveg: "Veg", spice_level: "None", main_ingredient: "Yogurt & Vegetables" },
+    ];
 
-// ===================== STATE =====================
-let cart = [];
-let activeFilter = 'all';
-let highlightedIds = null; // null = no AI filter, [] = AI found nothing, [id,...] = filtered
+    // ===================== STATE =====================
+    let cart = [];
+    let activeFilter = 'all';
+    let highlightedIds = null; // null = no AI filter, [] = AI found nothing, [id,...] = filtered
+    let chatHistory = [
+      {
+        role: "model",
+        content: "Namaste! 🙏 I'm your Handi Restaurant assistant.\n\nAsk me to:\n• Find dishes by spice level\n• Suggest veg/non-veg options\n• Help you order\n• Check your order status"
+      }
+    ];
 
-// ===================== RENDER MENU =====================
-const CATEGORY_ORDER = [
-  "Non Veg Starter","Non Veg Main Course","Pure Veg","Veg Starters",
-  "Roomali Rolls","Rice","Breads","Raita"
-];
+    // ===================== RENDER MENU =====================
+    const CATEGORY_ORDER = [
+      "Non Veg Starter", "Non Veg Main Course", "Pure Veg", "Veg Starters",
+      "Roomali Rolls", "Rice", "Breads", "Raita"
+    ];
 
-function getFilteredData() {
-  let data = menuData;
-  if (activeFilter === 'veg') data = data.filter(d => d.veg_nonveg === 'Veg');
-  else if (activeFilter === 'nonveg') data = data.filter(d => d.veg_nonveg === 'Non-Veg');
-  else if (activeFilter !== 'all') data = data.filter(d => d.category === activeFilter);
-  return data;
-}
+    function getFilteredData() {
+      let data = menuData;
+      if (activeFilter === 'veg') data = data.filter(d => d.veg_nonveg === 'Veg');
+      else if (activeFilter === 'nonveg') data = data.filter(d => d.veg_nonveg === 'Non-Veg');
+      else if (activeFilter !== 'all') data = data.filter(d => d.category === activeFilter);
+      return data;
+    }
 
-function renderMenu() {
-  const container = document.getElementById('menu-container');
-  const data = getFilteredData();
+    function renderMenu() {
+      const container = document.getElementById('menu-container');
+      const data = getFilteredData();
 
-  const grouped = {};
-  for (const cat of CATEGORY_ORDER) grouped[cat] = [];
-  data.forEach(item => {
-    if (!grouped[item.category]) grouped[item.category] = [];
-    grouped[item.category].push(item);
-  });
+      const grouped = {};
+      for (const cat of CATEGORY_ORDER) grouped[cat] = [];
+      data.forEach(item => {
+        if (!grouped[item.category]) grouped[item.category] = [];
+        grouped[item.category].push(item);
+      });
 
-  let html = '';
-  for (const cat of CATEGORY_ORDER) {
-    const items = grouped[cat];
-    if (!items || !items.length) continue;
-    html += `
+      let html = '';
+      for (const cat of CATEGORY_ORDER) {
+        const items = grouped[cat];
+        if (!items || !items.length) continue;
+        html += `
       <div class="category-section">
         <div class="category-header">
           <div class="category-label">${cat}</div>
@@ -721,27 +925,27 @@ function renderMenu() {
           ${items.map(item => renderCard(item)).join('')}
         </div>
       </div>`;
-  }
+      }
 
-  if (!html) {
-    html = '<div class="no-results">No dishes found for this filter.</div>';
-  }
+      if (!html) {
+        html = '<div class="no-results">No dishes found for this filter.</div>';
+      }
 
-  container.innerHTML = html;
-}
+      container.innerHTML = html;
+    }
 
-function renderCard(item) {
-  const inCart = cart.some(c => c.id === item.id);
-  let cardClass = 'dish-card';
-  if (highlightedIds !== null) {
-    cardClass += highlightedIds.includes(item.id) ? ' highlight' : ' dimmed';
-  }
+    function renderCard(item) {
+      const inCart = cart.some(c => c.id === item.id);
+      let cardClass = 'dish-card';
+      if (highlightedIds !== null) {
+        cardClass += highlightedIds.includes(item.id) ? ' highlight' : ' dimmed';
+      }
 
-  const priceDisplay = item.price.full
-    ? `<span class="price-full">₹${item.price.full}</span>${item.price.half ? `<span class="price-half">Half ₹${item.price.half}</span>` : ''}`
-    : `<span class="price-full">₹${item.price.half}</span><span class="price-half">Half only</span>`;
+      // Display only the full price (or half price if only half is available)
+      const price = item.price.full || item.price.half;
+      const priceDisplay = `<span class="price-full">₹${price}</span>`;
 
-  return `
+      return `
     <div class="${cardClass}" id="card-${item.id}">
       <div class="dish-top">
         <div class="dish-name">${item.name}</div>
@@ -752,205 +956,214 @@ function renderCard(item) {
         <span class="tag tag-ingredient">${item.main_ingredient}</span>
       </div>
       <div class="dish-prices">${priceDisplay}</div>
-      <button class="add-btn ${inCart ? 'added' : ''}" onclick="toggleCart(${item.id})">
+      <button class="add-btn ${inCart ? 'added' : ''}" style="margin-top: auto;" onclick="toggleCart(${item.id})">
         ${inCart ? '✓ Added' : '+ Add to Order'}
       </button>
     </div>`;
-}
+    }
 
-// ===================== FILTER =====================
-function setFilter(filter, el) {
-  activeFilter = filter;
-  highlightedIds = null;
-  document.querySelectorAll('.filter-chip').forEach(c => {
-    c.classList.remove('active','veg-active','nonveg-active');
-  });
-  if (filter === 'veg') el.classList.add('veg-active');
-  else if (filter === 'nonveg') el.classList.add('nonveg-active');
-  else el.classList.add('active');
-  renderMenu();
-}
-
-// ===================== CART =====================
-async function toggleCart(id) {
-  const item = menuData.find(m => m.id === id);
-  const inCart = cart.some(c => c.id === id);
-  try {
-    let res;
-    if (inCart) {
-      res = await fetch(`/api/bag/${id}`, { method: 'DELETE' });
-    } else {
-      res = await fetch('/api/bag', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id })
+    // ===================== FILTER =====================
+    function setFilter(filter, el) {
+      activeFilter = filter;
+      highlightedIds = null;
+      document.querySelectorAll('.filter-chip').forEach(c => {
+        c.classList.remove('active', 'veg-active', 'nonveg-active');
       });
+      if (filter === 'veg') el.classList.add('veg-active');
+      else if (filter === 'nonveg') el.classList.add('nonveg-active');
+      else el.classList.add('active');
+      renderMenu();
     }
-    cart = await res.json();
-    updateCartCount();
-    // Re-render just the card
-    const cardEl = document.getElementById('card-' + id);
-    if (cardEl) cardEl.outerHTML = renderCard(item);
 
-    // If cart modal is open, re-render it
-    if (document.getElementById('cart-modal').classList.contains('open')) {
-      renderCartModal();
+    // ===================== CART =====================
+    async function toggleCart(id) {
+      const item = menuData.find(m => m.id === id);
+      const inCart = cart.some(c => c.id === id);
+      try {
+        let res;
+        if (inCart) {
+          res = await fetch(`/api/bag/${id}`, { method: 'DELETE' });
+        } else {
+          res = await fetch('/api/bag', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id })
+          });
+        }
+        cart = await res.json();
+        updateCartCount();
+        // Re-render just the card
+        const cardEl = document.getElementById('card-' + id);
+        if (cardEl) cardEl.outerHTML = renderCard(item);
+
+        // If cart modal is open, re-render it
+        if (document.getElementById('cart-modal').classList.contains('open')) {
+          renderCartModal();
+        }
+      } catch (err) {
+        console.error("Failed to toggle cart item", err);
+      }
     }
-  } catch (err) {
-    console.error("Failed to toggle cart item", err);
-  }
-}
 
-function updateCartCount() {
-  document.getElementById('cart-count').textContent = cart.length;
-}
+    function updateCartCount() {
+      document.getElementById('cart-count').textContent = cart.length;
+    }
 
-function openCart() {
-  const list = document.getElementById('cart-items-list');
-  if (!cart.length) {
-    list.innerHTML = '<p style="color:var(--muted);text-align:center;padding:20px">Your cart is empty. Browse the menu and add items!</p>';
-    document.getElementById('cart-total').textContent = '';
-  } else {
-    list.innerHTML = cart.map(item => `
+    function openCart() {
+      const list = document.getElementById('cart-items-list');
+      if (!cart.length) {
+        list.innerHTML = '<p style="color:var(--muted);text-align:center;padding:20px">Your cart is empty. Browse the menu and add items!</p>';
+        document.getElementById('cart-total').textContent = '';
+      } else {
+        list.innerHTML = cart.map(item => `
       <div class="cart-item">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-price">₹${item.price.full || item.price.half}</div>
         <button class="remove-btn" onclick="toggleCart(${item.id})">✕</button>
       </div>`).join('');
-    const total = cart.reduce((s, i) => s + (i.price.full || i.price.half || 0), 0);
-    document.getElementById('cart-total').textContent = `Total: ₹${total}`;
-  }
-  document.getElementById('cart-modal').classList.add('open');
-}
+        const total = cart.reduce((s, i) => s + (i.price.full || i.price.half || 0), 0);
+        document.getElementById('cart-total').textContent = `Total: ₹${total}`;
+      }
+      document.getElementById('cart-modal').classList.add('open');
+    }
 
-function renderCartModal() {
-  openCart(); // re-render
-}
+    function renderCartModal() {
+      openCart(); // re-render
+    }
 
-function closeCart() {
-  document.getElementById('cart-modal').classList.remove('open');
-}
+    function closeCart() {
+      document.getElementById('cart-modal').classList.remove('open');
+    }
 
-function placeOrder() {
-  if (!cart.length) return;
-  closeCart();
-  document.getElementById('chat-input').value = "Please place the order for my cart.";
-  sendMessage();
-}
+    function placeOrder() {
+      if (!cart.length) return;
+      closeCart();
+      document.getElementById('chat-input').value = "Please place the order for my cart.";
+      sendMessage();
+    }
 
-// ===================== CHAT =====================
-const messagesEl = document.getElementById('chat-messages');
+    // ===================== CHAT =====================
+    const messagesEl = document.getElementById('chat-messages');
 
-function appendMsg(text, role) {
-  const div = document.createElement('div');
-  div.className = `msg ${role}`;
-  div.textContent = text;
-  messagesEl.appendChild(div);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
-  return div;
-}
+    function appendMsg(text, role) {
+      const div = document.createElement('div');
+      div.className = `msg ${role}`;
+      div.textContent = text;
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return div;
+    }
 
-function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-}
+    function handleKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    }
 
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 100) + 'px';
-}
+    function autoResize(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+    }
 
-function sendQuick(text) {
-  document.getElementById('chat-input').value = text;
-  sendMessage();
-}
+    function sendQuick(text) {
+      document.getElementById('chat-input').value = text;
+      sendMessage();
+    }
 
-async function sendMessage() {
-  const input = document.getElementById('chat-input');
-  const text = input.value.trim();
-  if (!text) return;
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
 
-  input.value = '';
-  input.style.height = 'auto';
-  appendMsg(text, 'user');
+      input.value = '';
+      input.style.height = 'auto';
+      appendMsg(text, 'user');
 
-  const typing = appendMsg('Thinking…', 'bot typing');
+      const typing = appendMsg('Thinking…', 'bot typing');
+      
+      // Track user message in history
+      chatHistory.push({ role: 'user', content: text });
 
-  try {
-    const res = await fetch('/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: text })
-    });
-    const data = await res.json();
-    typing.remove();
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: chatHistory })
+        });
+        const data = await res.json();
+        typing.remove();
 
-    const reply = data.reply || 'Sorry, I could not process that.';
-    appendMsg(reply, 'bot');
+        const reply = data.reply || 'Sorry, I could not process that.';
+        appendMsg(reply, 'bot');
+        
+        // Track assistant reply in history
+        chatHistory.push({ role: 'model', content: reply });
 
-    if (data.bag) {
-      cart = data.bag;
-      updateCartCount();
+        if (data.bag) {
+          cart = data.bag;
+          updateCartCount();
+          renderMenu();
+        }
+
+        // Try to apply AI filter to menu based on reply content
+        applyAIFilter(text, reply);
+
+      } catch (err) {
+        typing.textContent = '⚠ Could not reach the server. Make sure it\'s running on localhost:3000.';
+        typing.classList.remove('typing');
+        // Remove failed user query from history
+        chatHistory.pop();
+      }
+    }
+
+    // Smart highlight: parse dish names from AI reply and highlight them
+    function applyAIFilter(userMsg, reply) {
+      const lowerReply = reply.toLowerCase();
+      const lowerMsg = userMsg.toLowerCase();
+
+      // Detect recommendation context
+      const isFilterRequest = /recommend|suggest|show|spicy|mild|veg|non.veg|under|cheap|chicken|mutton|paneer|fish|starter|main|rice|bread|roll/i.test(userMsg);
+      if (!isFilterRequest) {
+        highlightedIds = null;
+        renderMenu();
+        return;
+      }
+
+      // Find dishes mentioned in reply
+      const matched = menuData.filter(item =>
+        lowerReply.includes(item.name.toLowerCase())
+      );
+
+      if (matched.length > 0) {
+        highlightedIds = matched.map(m => m.id);
+      } else {
+        // Fallback: filter by keywords in user message
+        highlightedIds = null;
+      }
       renderMenu();
     }
 
-    // Try to apply AI filter to menu based on reply content
-    applyAIFilter(text, reply);
+    // Close modal on overlay click
+    document.getElementById('cart-modal').addEventListener('click', function (e) {
+      if (e.target === this) closeCart();
+    });
 
-  } catch (err) {
-    typing.textContent = '⚠ Could not reach the server. Make sure it\'s running on localhost:3000.';
-    typing.classList.remove('typing');
-  }
-}
+    async function initBag() {
+      try {
+        const res = await fetch('/api/bag');
+        cart = await res.json();
+        updateCartCount();
+        renderMenu();
+      } catch (err) {
+        console.error("Failed to load bag", err);
+        renderMenu();
+      }
+    }
 
-// Smart highlight: parse dish names from AI reply and highlight them
-function applyAIFilter(userMsg, reply) {
-  const lowerReply = reply.toLowerCase();
-  const lowerMsg = userMsg.toLowerCase();
-
-  // Detect recommendation context
-  const isFilterRequest = /recommend|suggest|show|spicy|mild|veg|non.veg|under|cheap|chicken|mutton|paneer|fish|starter|main|rice|bread|roll/i.test(userMsg);
-  if (!isFilterRequest) {
-    highlightedIds = null;
-    renderMenu();
-    return;
-  }
-
-  // Find dishes mentioned in reply
-  const matched = menuData.filter(item =>
-    lowerReply.includes(item.name.toLowerCase())
-  );
-
-  if (matched.length > 0) {
-    highlightedIds = matched.map(m => m.id);
-  } else {
-    // Fallback: filter by keywords in user message
-    highlightedIds = null;
-  }
-  renderMenu();
-}
-
-// Close modal on overlay click
-document.getElementById('cart-modal').addEventListener('click', function(e) {
-  if (e.target === this) closeCart();
-});
-
-async function initBag() {
-  try {
-    const res = await fetch('/api/bag');
-    cart = await res.json();
-    updateCartCount();
-    renderMenu();
-  } catch (err) {
-    console.error("Failed to load bag", err);
-    renderMenu();
-  }
-}
-
-// ===================== INIT =====================
-initBag();
-</script>
+    // ===================== INIT =====================
+    initBag();
+  </script>
 </body>
+
 </html>

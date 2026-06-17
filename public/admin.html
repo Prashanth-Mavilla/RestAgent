@@ -1,153 +1,225 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-<title>Admin Dashboard</title>
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Dashboard - Handi Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-body{
-    font-family:Arial;
-    padding:20px;
-}
+  :root {
+    --bg:        #0f0d0a;
+    --surface:   #1a1612;
+    --card:      #211d17;
+    --border:    #2e2820;
+    --ember:     #e8620a;
+    --ember-dim: #a04208;
+    --gold:      #d4a017;
+    --cream:     #f0e8d8;
+    --muted:     #7a6f62;
+    --veg:       #4caf6e;
+    --nonveg:    #e05a5a;
+    --text:      #ede5d8;
+  }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-}
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    padding: 24px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
-th,td{
-    border:1px solid #ccc;
-    padding:10px;
-}
+  /* ---- HEADER ---- */
+  header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--ember);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--gold); }
+  .logo-sub {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 4px;
+  }
 
-button{
-    margin-right:5px;
-}
 
+  /* ---- ACTIONS BAR ---- */
+  .actions-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+  
+  /* Buttons */
+  button.btn {
+    background: var(--ember);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  button.btn:hover { background: #c4530a; }
+  
+  button.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  button.btn-secondary:hover {
+    border-color: var(--muted);
+    color: var(--text);
+  }
+
+  /* ---- TABLE STYLING ---- */
+  .table-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+  th, td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  th {
+    background: var(--card);
+    color: var(--gold);
+    font-weight: 600;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+  tr:hover td {
+    background: rgba(255,255,255,0.01);
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .status-badge.pending { background: rgba(212, 160, 23, 0.15); color: var(--gold); }
+  .status-badge.preparing { background: rgba(232, 98, 10, 0.15); color: var(--ember); }
+  .status-badge.ready { background: rgba(76, 175, 110, 0.15); color: var(--veg); }
 </style>
-
 </head>
-
 <body>
 
-<h1>🍽 Restaurant Admin Dashboard</h1>
+<header>
+  <div>
+    <div class="logo">Handi <span>Dashboard</span></div>
+    <div class="logo-sub">Restaurant Orders</div>
+  </div>
+</header>
 
-<button onclick="loadOrders()">
-Refresh Orders
-</button>
-
-<br><br>
-
+<div class="actions-bar">
+  <button class="btn" onclick="loadOrders()">Refresh Orders</button>
+</div>
 <div id="orders"></div>
 
 <script>
-
 async function loadOrders(){
+    const response = await fetch("/admin/orders");
+    const orders = await response.json();
 
-    const response =
-        await fetch("/admin/orders");
+    if (!orders.length) {
+        document.getElementById("orders").innerHTML = `
+            <div style="color:var(--muted); text-align:center; padding:40px;">
+                No orders placed yet.
+            </div>`;
+        return;
+    }
 
-    const orders =
-        await response.json();
-
-    let html=`
-
-    <table>
-
-        <tr>
-
-            <th>Token</th>
-            <th>Order</th>
-            <th>Status</th>
-            <th>Action</th>
-
-        </tr>
-
+    let html = `
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Token</th>
+                <th>Order Details</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
     `;
 
-    orders.forEach(order=>{
+    orders.forEach(order => {
         const itemText = order.items && order.items.length
             ? order.items.map(item => `${item.name} (₹${item.price.full || item.price.half})`).join(', ')
             : 'No items';
+            
+        const statusClass = order.status.toLowerCase();
 
         html += `
-
         <tr>
-
-            <td>${order.token}</td>
-
+            <td style="font-weight:700; color:var(--gold);">${order.token}</td>
             <td>
-                <div>${itemText}</div>
-                <div style="font-size:0.85em; color:#666; margin-top:4px;">Total: <strong>₹${order.total || 0}</strong></div>
+                <div style="font-weight:500;">${itemText}</div>
+                <div style="font-size:0.8em; color:var(--muted); margin-top:4px;">
+                    Total: <strong style="color:var(--gold)">₹${order.total || 0}</strong>
+                </div>
             </td>
-
-            <td>${order.status}</td>
-
             <td>
-
-                <button
-                onclick="updateStatus(
-                '${order.token}',
-                'Preparing'
-                )">
-
-                Preparing
-
-                </button>
-
-                <button
-                onclick="updateStatus(
-                '${order.token}',
-                'Ready'
-                )">
-
-                Ready
-
-                </button>
-
+                <span class="status-badge ${statusClass}">${order.status}</span>
             </td>
-
+            <td>
+                <button class="btn btn-secondary" style="padding:6px 12px; font-size:0.75rem;" onclick="updateStatus('${order.token}', 'Preparing')">
+                    Preparing
+                </button>
+                <button class="btn" style="padding:6px 12px; font-size:0.75rem;" onclick="updateStatus('${order.token}', 'Ready')">
+                    Ready
+                </button>
+            </td>
         </tr>
-
         `;
     });
 
-    html += "</table>";
-
-    document.getElementById("orders")
-        .innerHTML = html;
+    html += "</table></div>";
+    document.getElementById("orders").innerHTML = html;
 }
 
-async function updateStatus(
-    token,
-    status
-){
-
-    await fetch(
-        `/admin/order/${token}`,
-        {
-
-            method:"PUT",
-
-            headers:{
-                "Content-Type":
-                "application/json"
-            },
-
-            body:JSON.stringify({
-                status
-            })
-
-        }
-    );
-
+async function updateStatus(token, status) {
+    await fetch(`/admin/order/${token}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status })
+    });
     loadOrders();
 }
 
+// Initial load
 loadOrders();
-
 </script>
-
 </body>
 </html>
